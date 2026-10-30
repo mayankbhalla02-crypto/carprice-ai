@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Sign Up — Car Valuation AI</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-[#0b0f17] text-white flex items-center justify-center h-screen">
+    <div class="bg-[#121824] p-8 rounded-2xl border border-white/10 w-full max-w-md shadow-2xl">
+        <h2 class="text-2xl font-bold mb-2 text-orange-500">Create Account</h2>
+        <p class="text-gray-400 mb-6 text-sm">Join the next-gen vehicle pricing platform.</p>
+        
+        {% if error %}
+        <div class="bg-red-500/20 border border-red-500 text-red-300 p-3 rounded-lg mb-4 text-sm">{{ error }}</div>
+        {% endif %}
+
+        <form method="POST" class="space-y-4">
+            <div>
+                <label class="block text-xs uppercase tracking-wider text-gray-400 mb-1">Email Address</label>
+                <input type="email" name="email" required class="w-full bg-[#1b2230] border border-white/10 rounded-lg p-3 text-white focus:outline-none focus:border-orange-500" placeholder="you@example.com">
+            </div>
+            <div>
+                <label class="block text-xs uppercase tracking-wider text-gray-400 mb-1">Organization / Name</label>
+                <input type="text" name="org_name" class="w-full bg-[#1b2230] border border-white/10 rounded-lg p-3 text-white focus:outline-none focus:border-orange-500" placeholder="My Dealership">
+            </div>
+            <div>
+                <label class="block text-xs uppercase tracking-wider text-gray-400 mb-1">Password (min 6 chars)</label>
+                <input type="password" name="password" required class="w-full bg-[#1b2230] border border-white/10 rounded-lg p-3 text-white focus:outline-none focus:border-orange-500" placeholder="••••••••">
+            </div>
+            <button type="submit" class="w-full bg-orange-500 hover:bg-orange-600 text-black font-bold py-3 rounded-lg transition">Create Account</button>
+        </form>
+        <p class="mt-6 text-center text-sm text-gray-400">Already have an account? <a href="/login" class="text-orange-400 hover:underline">Log in</a></p>
+    </div>
+</body>
+</html>

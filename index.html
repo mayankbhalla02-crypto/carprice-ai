@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Fresh Route AI – Vehicle valuation</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+tailwind.config = { theme: { extend: {
+  fontFamily: { sans: ['"Plus Jakarta Sans"', 'Inter', 'system-ui', 'sans-serif'] },
+  colors: { brand: '#ff6b00', ice: '#00f2fe', ink: '#0d0f12' }
+}}};
+</script>
+<style>
+  body { background:#0d0f12; color:#e7eaf0; }
+  body::before { content:""; position:fixed; inset:0; z-index:-1;
+    background: radial-gradient(60rem 36rem at 8% -10%, rgba(255,107,0,.18), transparent 60%),
+                radial-gradient(48rem 32rem at 100% 8%, rgba(0,242,254,.11), transparent 60%),
+                linear-gradient(180deg, #0d0f12, #090a0c); }
+  .glass { background:rgba(255,255,255,.04); -webkit-backdrop-filter:blur(14px); backdrop-filter:blur(14px);
+    border:1px solid rgba(255,255,255,.1); box-shadow:0 14px 44px -14px rgba(0,0,0,.7); }
+  .lift { transition:transform .25s, box-shadow .25s, border-color .25s; }
+  .lift:hover { transform:translateY(-2px); border-color:rgba(255,107,0,.4); box-shadow:0 12px 40px -10px rgba(255,107,0,.3); }
+  .field { width:100%; background:rgba(255,255,255,.04); border:1px solid rgba(255,255,255,.1); border-radius:.75rem;
+    padding:.75rem 1rem; color:#fff; outline:none; transition:border-color .2s, box-shadow .2s; }
+  .field::placeholder { color:#6b7383; }
+  .field:focus { border-color:#ff6b00; box-shadow:0 0 0 3px rgba(255,107,0,.2); }
+  select.field option { background:#14171c; }
+  .lbl { display:block; font-size:.8rem; font-weight:600; color:#9aa3b2; margin-bottom:.4rem; }
+  .btn { background:linear-gradient(135deg,#ff6b00,#ff9a3c); color:#0d0f12; font-weight:800; border-radius:.9rem;
+    transition:transform .2s, box-shadow .2s, opacity .2s; box-shadow:0 8px 30px -8px rgba(255,107,0,.7); }
+  .btn:hover:not(:disabled) { transform:translateY(-1px); box-shadow:0 12px 38px -6px rgba(255,107,0,.85); }
+  .btn:active:not(:disabled) { transform:translateY(0); }
+  .btn:disabled { opacity:.65; cursor:wait; }
+  :focus-visible { outline:2px solid #00f2fe; outline-offset:2px; }
+  .seg input { position:absolute; opacity:0; pointer-events:none; }
+  .seg label { display:block; text-align:center; padding:.6rem .5rem; font-size:.85rem; font-weight:600; color:#9aa3b2; cursor:pointer;
+    border:1px solid rgba(255,255,255,.1); border-radius:.7rem; background:rgba(255,255,255,.03); transition:.2s; }
+  .seg label:hover { color:#fff; border-color:rgba(255,255,255,.25); }
+  .seg input:checked + label { color:#fff; background:rgba(255,107,0,.16); border-color:#ff6b00; box-shadow:0 0 18px -4px rgba(255,107,0,.6); }
+  .seg input:focus-visible + label { outline:2px solid #00f2fe; outline-offset:2px; }
+  .reveal { max-height:0; opacity:0; overflow:hidden; padding:4px; margin:-4px; transition:max-height .35s ease, opacity .3s ease; }
+  .reveal.open { max-height:110px; opacity:1; }
+  .tab { padding:.5rem 1rem; border-radius:.7rem; font-size:.9rem; font-weight:600; color:#9aa3b2; border:1px solid transparent; transition:.2s; white-space:nowrap; }
+  .tab:hover { color:#fff; }
+  .tab.active { color:#fff; background:rgba(255,107,0,.14); border-color:rgba(255,107,0,.35); }
+  .shake { animation:shake .4s; }
+  @keyframes shake { 20%,60% { transform:translateX(-6px); } 40%,80% { transform:translateX(6px); } }
+  @keyframes pulse-ring { 0% { box-shadow:0 0 0 0 rgba(255,107,0,.55); } 100% { box-shadow:0 0 0 14px rgba(255,107,0,0); } }
+  .logo-glow { animation:pulse-ring 2.4s infinite; }
+  .bar { height:.55rem; border-radius:999px; transition:width 1s cubic-bezier(.2,.8,.2,1); width:0; }
+  @media (prefers-reduced-motion: reduce) { *, ::before, ::after { animation:none !important; transition:none !important; } }
+</style>
+</head>
+<body class="font-sans antialiased min-h-screen">
+
+<!-- ============ AUTH ============ -->
+<div id="auth-container" class="min-h-screen flex items-center justify-center px-4 py-10">
+  <div class="w-full max-w-6xl grid lg:grid-cols-2 gap-14 items-center">
+    <div class="hidden lg:block">
+      <div class="flex items-center gap-3 mb-10">
+        <div class="logo-glow w-11 h-11 rounded-xl bg-brand grid place-items-center text-ink text-lg"><i class="fa-solid fa-route"></i></div>
+        <span class="text-xl font-extrabold tracking-tight">Fresh Route AI</span>
+      </div>
+      <h1 class="text-5xl font-extrabold leading-[1.1] tracking-tight">Know what any car is worth before you negotiate.</h1>
+      <p class="mt-5 text-lg text-slate-400 max-w-md">Pick a make, model and fuel type. Our model prices it against live market listings in seconds.</p>
+      <ul class="mt-8 space-y-3 text-slate-300">
+        <li><i class="fa-solid fa-bolt text-brand w-6"></i>Estimates in under two seconds</li>
+        <li><i class="fa-solid fa-chart-line text-ice w-6"></i>Benchmarked against CarDekho listings</li>
+        <li><i class="fa-solid fa-gauge-high text-brand w-6"></i>Confidence score on every valuation</li>
+      </ul>
+    </div>
+
+    <div class="glass rounded-3xl p-7 sm:p-10 w-full max-w-md mx-auto">
+      <div class="flex lg:hidden items-center gap-3 mb-6">
+        <div class="w-10 h-10 rounded-xl bg-brand grid place-items-center text-ink"><i class="fa-solid fa-route"></i></div>
+        <span class="text-lg font-extrabold">Fresh Route AI</span>
+      </div>
+      <h2 id="auth-title" class="text-2xl font-extrabold">Welcome back</h2>
+      <p id="auth-sub" class="text-slate-400 text-sm mt-1 mb-6">Log in to run your next valuation.</p>
+
+      <div id="auth-error" role="alert" class="hidden mb-4 rounded-xl border border-red-500/40 bg-red-500/10 text-red-300 text-sm px-4 py-3"></div>
+
+      <form id="auth-form" class="space-y-4" novalidate>
+        <div id="username-wrap" class="reveal">
+          <label class="lbl" for="reg-username">Username</label>
+          <input id="reg-username" class="field" type="text" autocomplete="username" placeholder="driver_one">
+        </div>
+        <div>
+          <label class="lbl" for="auth-email">Email</label>
+          <input id="auth-email" class="field" type="email" autocomplete="email" placeholder="you@example.com">
+        </div>
+        <div>
+          <label class="lbl" for="auth-password">Password</label>
+          <input id="auth-password" class="field" type="password" autocomplete="current-password" placeholder="At least 6 characters">
+        </div>
+        <button id="auth-btn" type="submit" class="btn w-full py-3.5 mt-2">Log in</button>
+      </form>
+
+      <p class="text-center text-sm text-slate-400 mt-6">
+        <span id="toggle-text">New to Fresh Route AI?</span>
+        <button id="toggle-link" type="button" class="text-brand font-bold hover:underline ml-1">Create account</button>
+      </p>
+    </div>
+  </div>
+</div>
+
+<!-- ============ MAIN APP ============ -->
+<div id="main-app" style="display:none">
+  <header class="sticky top-0 z-30 glass border-x-0 border-t-0 rounded-none">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 py-3 flex flex-wrap items-center justify-between gap-y-2">
+      <div class="flex items-center gap-3">
+        <div class="logo-glow w-10 h-10 rounded-xl bg-brand grid place-items-center text-ink"><i class="fa-solid fa-route"></i></div>
+        <span class="font-extrabold text-lg tracking-tight">Fresh Route AI</span>
+      </div>
+      <nav class="order-3 md:order-none w-full md:w-auto flex gap-1 overflow-x-auto" aria-label="Sections">
+        <button class="tab active" data-tab="predictor"><i class="fa-solid fa-wand-magic-sparkles mr-2"></i>AI Predictor</button>
+        <button class="tab" data-tab="specs"><i class="fa-solid fa-table-list mr-2"></i>Market Specs</button>
+        <button class="tab" data-tab="history"><i class="fa-solid fa-clock-rotate-left mr-2"></i>History</button>
+      </nav>
+      <div class="flex items-center gap-3">
+        <div class="flex items-center gap-2">
+          <div id="avatar" class="w-9 h-9 rounded-full bg-gradient-to-br from-brand to-ice grid place-items-center text-ink font-extrabold">U</div>
+          <span id="profile-name" class="hidden sm:inline text-sm font-semibold"></span>
+        </div>
+        <button id="logout-btn" class="px-3 py-2 rounded-xl border border-white/10 text-sm text-slate-300 hover:text-white hover:border-brand/60 transition" title="Log out">
+          <i class="fa-solid fa-right-from-bracket"></i><span class="hidden sm:inline ml-2">Log out</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 py-10">
+
+    <!-- Predictor -->
+    <section id="panel-predictor">
+      <div class="max-w-3xl">
+        <h1 class="text-4xl sm:text-5xl font-extrabold tracking-tight leading-[1.1]">Next-Gen AI Vehicle Valuation</h1>
+        <p class="mt-4 text-slate-400 text-lg max-w-xl">Real market data in, a fair price out. Check what a car is worth before you buy or sell.</p>
+      </div>
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mt-8">
+        <div class="glass lift rounded-2xl p-5"><div class="text-3xl font-extrabold text-brand"><span class="count" data-target="96.4" data-dec="1">0</span>%</div><div class="text-sm text-slate-400 mt-1">Accuracy rate</div></div>
+        <div class="glass lift rounded-2xl p-5"><div class="text-3xl font-extrabold text-ice"><span id="stat-preds" class="count" data-target="128430" data-dec="0">0</span></div><div class="text-sm text-slate-400 mt-1">Predictions processed</div></div>
+        <div class="glass lift rounded-2xl p-5"><div class="text-3xl font-extrabold text-brand"><span class="count" data-target="42" data-dec="0">0</span></div><div class="text-sm text-slate-400 mt-1">Active datasets</div></div>
+      </div>
+
+      <div class="grid lg:grid-cols-5 gap-6 mt-8">
+        <form id="predict-form" class="glass rounded-3xl p-6 sm:p-8 lg:col-span-2 space-y-5 h-fit">
+          <h2 class="text-xl font-extrabold">Describe the car</h2>
+          <div class="grid grid-cols-2 gap-3">
+            <div><label class="lbl" for="brand">Brand</label><select id="brand" class="field"></select></div>
+            <div><label class="lbl" for="model">Model</label><select id="model" class="field"></select></div>
+          </div>
+          <div>
+            <span class="lbl">Fuel type</span>
+            <div class="seg grid grid-cols-2 sm:grid-cols-4 gap-2" id="fuel-seg"></div>
+          </div>
+          <div>
+            <span class="lbl">Transmission</span>
+            <div class="seg grid grid-cols-2 gap-2" id="trans-seg"></div>
+          </div>
+          <div>
+            <label class="lbl" for="budget">Target price (₹ lakh, optional)</label>
+            <input id="budget" class="field" type="number" min="0" step="0.1" placeholder="e.g. 8.5">
+          </div>
+          <button id="predict-btn" type="submit" class="btn w-full py-4 text-base"><i class="fa-solid fa-bolt mr-2"></i>Run AI Price Estimation</button>
+        </form>
+
+        <div class="glass rounded-3xl p-6 sm:p-8 lg:col-span-3 min-h-[28rem]" id="result-card" aria-live="polite">
+          <div id="result-empty" class="h-full min-h-[22rem] grid place-items-center text-center text-slate-400">
+            <div><i class="fa-solid fa-gauge text-4xl text-brand/70 mb-4"></i><p class="font-semibold text-slate-200">Your valuation appears here</p><p class="text-sm mt-1">Choose a car and run the estimate.</p></div>
+          </div>
+          <div id="result" class="hidden">
+            <div class="flex flex-wrap items-center justify-between gap-3">
+              <div>
+                <h2 class="text-xl font-extrabold" id="res-car">Car</h2>
+                <p class="text-sm text-slate-400" id="res-meta"></p>
+              </div>
+              <span id="conf-pill" class="px-3 py-1.5 rounded-full text-sm font-bold border"></span>
+            </div>
+
+            <svg viewBox="0 0 200 118" class="w-full max-w-sm mx-auto mt-4" role="img" aria-label="Price gauge">
+              <defs><linearGradient id="gg" x1="0" x2="1" y1="0" y2="0"><stop offset="0" stop-color="#00f2fe"/><stop offset="1" stop-color="#ff6b00"/></linearGradient></defs>
+              <path d="M20 100A80 80 0 0 1 180 100" fill="none" stroke="rgba(255,255,255,.08)" stroke-width="14" stroke-linecap="round" pathLength="100"/>
+              <path id="gauge-arc" d="M20 100A80 80 0 0 1 180 100" fill="none" stroke="url(#gg)" stroke-width="14" stroke-linecap="round" pathLength="100"
+                    stroke-dasharray="100" stroke-dashoffset="100" style="transition:stroke-dashoffset 1.3s cubic-bezier(.2,.8,.2,1);filter:drop-shadow(0 0 6px rgba(255,107,0,.55))"/>
+              <text id="gauge-val" x="100" y="84" text-anchor="middle" fill="#fff" font-size="25" font-weight="800">₹0</text>
+              <text x="100" y="101" text-anchor="middle" fill="#9aa3b2" font-size="8">Predicted value</text>
+              <text id="gauge-lo" x="20" y="116" text-anchor="middle" fill="#6b7383" font-size="7.5"></text>
+              <text id="gauge-hi" x="180" y="116" text-anchor="middle" fill="#6b7383" font-size="7.5"></text>
+            </svg>
+
+            <div class="grid grid-cols-3 gap-3 mt-2">
+              <div class="rounded-2xl bg-white/5 border border-white/10 p-3 text-center"><div class="text-xs text-slate-400">Low</div><div id="r-low" class="font-extrabold text-ice mt-1"></div></div>
+              <div class="rounded-2xl bg-brand/10 border border-brand/40 p-3 text-center"><div class="text-xs text-slate-300">Fair value</div><div id="r-mid" class="font-extrabold text-brand mt-1"></div></div>
+              <div class="rounded-2xl bg-white/5 border border-white/10 p-3 text-center"><div class="text-xs text-slate-400">High</div><div id="r-high" class="font-extrabold text-ice mt-1"></div></div>
+            </div>
+            <p id="budget-note" class="hidden mt-4 text-sm font-semibold rounded-xl px-4 py-3 border"></p>
+
+            <div class="mt-6 pt-6 border-t border-white/10">
+              <div class="flex items-center justify-between mb-4">
+                <h3 class="font-extrabold">Market overview <span class="text-slate-400 font-medium text-sm">CarDekho benchmarks</span></h3>
+                <span id="delta-chip" class="text-xs font-bold px-2.5 py-1 rounded-full"></span>
+              </div>
+              <div id="bench" class="space-y-3"></div>
+              <p id="demo-note" class="hidden mt-4 text-xs text-amber-300/90"><i class="fa-solid fa-circle-info mr-1"></i>Backend not reachable, so this is a local demo estimate. Benchmarks are illustrative until connected to your CarDekho dataset.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Market specs -->
+    <section id="panel-specs" class="hidden">
+      <h1 class="text-3xl font-extrabold">Market specs</h1>
+      <p class="text-slate-400 mt-2 mb-6">Typical new price and estimated used value for the models we cover (petrol, manual).</p>
+      <div class="glass rounded-3xl overflow-x-auto">
+        <table class="w-full text-sm min-w-[32rem]">
+          <thead class="text-left text-slate-400"><tr><th class="p-4 font-semibold">Model</th><th class="p-4 font-semibold">New price</th><th class="p-4 font-semibold">Est. used value</th><th class="p-4 font-semibold">Value retained</th></tr></thead>
+          <tbody id="specs-body"></tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- History -->
+    <section id="panel-history" class="hidden">
+      <div class="flex items-end justify-between gap-4 mb-6">
+        <div><h1 class="text-3xl font-extrabold">History</h1><p class="text-slate-400 mt-2">Your recent valuations on this device.</p></div>
+        <button id="clear-history" class="text-sm text-slate-400 hover:text-brand transition">Clear history</button>
+      </div>
+      <div id="history-list" class="space-y-3"></div>
+    </section>
+  </main>
+</div>
+
+<script>
+const API = 'http://127.0.0.1:8000';          // FastAPI backend
+const $ = id => document.getElementById(id);
+const esc = s => String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const fmt = v => '₹' + v.toFixed(2) + ' L';
+
+/* ---------- Auth ---------- */
+const DEMO_MODE = window.location.protocol === 'file:';
+
+function getStorageValue(key, fallback) {
+  try {
+    const raw = localStorage.getItem(key);
+    return raw ? JSON.parse(raw) : fallback;
+  } catch {
+    return fallback;
+  }
+}
+
+function setStorageValue(key, value) {
+  try { localStorage.setItem(key, JSON.stringify(value)); } catch {}
+}
+
+function getDemoUsers() {
+  return getStorageValue('fra_users', []);
+}
+
+function saveDemoUser(user) {
+  const users = getDemoUsers();
+  const next = users.filter(u => u.email !== user.email);
+  next.push(user);
+  setStorageValue('fra_users', next);
+}
+
+function demoAuth(modeName, payload) {
+  const users = getDemoUsers();
+  if (modeName === 'signup') {
+    const existing = users.find(u => u.email.toLowerCase() === payload.email.toLowerCase() || u.username.toLowerCase() === payload.username.toLowerCase());
+    if (existing) {
+      throw new Error(existing.email.toLowerCase() === payload.email.toLowerCase() ? 'An account with that email already exists.' : 'That username is already taken.');
+    }
+    const user = { username: payload.username, email: payload.email, password: payload.password };
+    saveDemoUser(user);
+    return user.username;
+  }
+
+  const match = users.find(u => u.email.toLowerCase() === payload.email.toLowerCase() && u.password === payload.password);
+  if (!match) throw new Error('Invalid email or password.');
+  return match.username;
+}
+
+let mode = 'login';
+function setMode(m) {
+  mode = m;
+  const s = m === 'signup';
+  $('username-wrap').classList.toggle('open', s);
+  $('auth-title').textContent = s ? 'Create your account' : 'Welcome back';
+  $('auth-sub').textContent = s ? 'Start valuing cars with AI in a minute.' : 'Log in to run your next valuation.';
+  $('auth-btn').textContent = s ? 'Create account' : 'Log in';
+  $('toggle-text').textContent = s ? 'Already have an account?' : 'New to Fresh Route AI?';
+  $('toggle-link').textContent = s ? 'Log in' : 'Create account';
+  $('auth-password').autocomplete = s ? 'new-password' : 'current-password';
+  showError('');
+}
+function showError(msg) {
+  const el = $('auth-error');
+  el.textContent = msg;
+  el.classList.toggle('hidden', !msg);
+  if (msg) { el.classList.remove('shake'); void el.offsetWidth; el.classList.add('shake'); }
+}
+$('toggle-link').addEventListener('click', () => setMode(mode === 'login' ? 'signup' : 'login'));
+
+$('auth-btn').addEventListener('click', async (e) => {
+  e.preventDefault();
+  const username = $('reg-username').value.trim();
+  const email = $('auth-email').value.trim();
+  const password = $('auth-password').value;
+  if (mode === 'signup' && !username) return showError('Enter a username to create your account.');
+  if (!/^\S+@\S+\.\S+$/.test(email)) return showError('Enter a valid email address.');
+  if (password.length < 6) return showError('Password must be at least 6 characters.');
+
+  const btn = $('auth-btn'), label = btn.textContent;
+  btn.disabled = true; btn.innerHTML = '<i class="fa-solid fa-circle-notch fa-spin mr-2"></i>Please wait';
+  showError('');
+
+  try {
+    if (DEMO_MODE) {
+      const savedName = demoAuth(mode, mode === 'signup' ? { username, email, password } : { email, password });
+      enterApp(savedName);
+      return;
+    }
+
+    const res = await fetch(`${API}/${mode}`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(mode === 'signup' ? { username, email, password } : { email, password })
+    });
+    if (!res.ok) {
+      let detail = '';
+      try { const d = await res.json(); detail = typeof (d.detail || d.message) === 'string' ? (d.detail || d.message) : ''; } catch {}
+      throw new Error(detail || `Request failed with status ${res.status}. Check your details and try again.`);
+    }
+    let data = {}; try { data = await res.json(); } catch {}
+    enterApp(data.username || username || email.split('@')[0]);
+  } catch (err) {
+    const offline = err instanceof TypeError || /failed to fetch|networkerror|load failed/i.test(err.message);
+    if (DEMO_MODE) {
+      showError(err.message || 'Unable to continue in demo mode.');
+    } else {
+      showError(offline
+        ? 'Cannot reach the server at 127.0.0.1:8000. Start the backend, allow CORS, and open this file in your own browser (the chat preview blocks local servers).'
+        : err.message);
+    }
+  } finally {
+    btn.disabled = false; btn.textContent = label;
+  }
+});
+
+function enterApp(name) {
+  $('auth-container').style.display = 'none';
+  $('main-app').style.display = 'block';
+  $('profile-name').textContent = name;
+  $('avatar').textContent = name.charAt(0).toUpperCase();
+  window.scrollTo(0, 0);
+  showTab('predictor');
+  document.querySelectorAll('.count').forEach(el => countUp(el, +el.dataset.target, +el.dataset.dec));
+}
+$('logout-btn').addEventListener('click', () => {
+  $('main-app').style.display = 'none';
+  $('auth-container').style.display = '';
+  $('auth-form').reset(); setMode('login');
+  $('result').classList.add('hidden'); $('result-empty').classList.remove('hidden');
+});
+
+/* ---------- Data (illustrative; replace with backend data) ---------- */
+const MODELS = {
+  'Maruti Suzuki': { Swift: 6.5, Baleno: 7.5, Brezza: 9.5, Dzire: 6.8 },
+  Hyundai: { Creta: 12, i20: 8, Venue: 9, Verna: 11.5 },
+  Tata: { Nexon: 10, Punch: 7, Tiago: 6, Harrier: 17 },
+  Mahindra: { 'XUV700': 16, 'Scorpio-N': 15, Thar: 14, 'XUV300': 9.5 },
+  Toyota: { Glanza: 7.5, 'Innova Crysta': 22, Fortuner: 38 },
+  Honda: { City: 12.5, Amaze: 8 },
+  Kia: { Seltos: 12.5, Sonet: 9.5 }
+};
+const FUELS = { Petrol: 1, Diesel: 1.08, CNG: 0.97, Electric: 1.25 };
+const TRANS = { Manual: 1, Automatic: 1.07 };
+const RETAIN = 0.68;
+const hash = s => [...s].reduce((a, c) => (a * 31 + c.charCodeAt(0)) >>> 0, 7);
+const heur = p => MODELS[p.brand][p.model] * RETAIN * FUELS[p.fuel_type] * TRANS[p.transmission];
+
+/* ---------- Form setup ---------- */
+function seg(el, name, items, def) {
+  el.innerHTML = items.map(v => `<div class="relative"><input type="radio" name="${name}" id="${name}-${v}" value="${v}" ${v === def ? 'checked' : ''}><label for="${name}-${v}">${v}</label></div>`).join('');
+}
+seg($('fuel-seg'), 'fuel', Object.keys(FUELS), 'Petrol');
+seg($('trans-seg'), 'trans', Object.keys(TRANS), 'Manual');
+$('brand').innerHTML = Object.keys(MODELS).map(b => `<option>${b}</option>`).join('');
+const fillModels = () => { $('model').innerHTML = Object.keys(MODELS[$('brand').value]).map(m => `<option>${m}</option>`).join(''); };
+$('brand').addEventListener('change', fillModels); fillModels();
+
+/* ---------- Tabs ---------- */
+function showTab(name) {
+  document.querySelectorAll('.tab').forEach(t => t.classList.toggle('active', t.dataset.tab === name));
+  ['predictor', 'specs', 'history'].forEach(n => $('panel-' + n).classList.toggle('hidden', n !== name));
+  if (name === 'history') renderHistory();
+}
+document.querySelectorAll('.tab').forEach(t => t.addEventListener('click', () => showTab(t.dataset.tab)));
+
+$('specs-body').innerHTML = Object.entries(MODELS).flatMap(([b, ms]) => Object.entries(ms).map(([m, base]) =>
+  `<tr class="border-t border-white/10 hover:bg-white/5 transition"><td class="p-4 font-semibold">${esc(b)} ${esc(m)}</td><td class="p-4">${fmt(base)}</td><td class="p-4 text-brand font-semibold">${fmt(base * RETAIN)}</td><td class="p-4">${Math.round(RETAIN * 100)}%</td></tr>`)).join('');
+
+/* ---------- Counters ---------- */
+function countUp(el, target, dec) {
+  const t0 = performance.now(), dur = 1600;
+  (function tick(t) {
+    const k = Math.min((t - t0) / dur, 1), e = 1 - Math.pow(1 - k, 3);
+    el.textContent = (target * e).toLocaleString('en-IN', { minimumFractionDigits: dec, maximumFractionDigits: dec });
+    if (k < 1) requestAnimationFrame(tick);
+  })(t0);
+}
+let preds = 128430;
+function bumpPreds(n) { preds += n; $('stat-preds').textContent = preds.toLocaleString('en-IN'); }
+setInterval(() => { if ($('main-app').style.display === 'block') bumpPreds(1 + Math.floor(Math.random() * 3)); }, 4000);
+
+/* ---------- Prediction ---------- */
+function demoPrediction(p) {
+  const v = heur(p);
+  const conf = 85 + (hash(p.brand + p.model) % 9) - (p.fuel_type === 'Electric' ? 3 : 0);
+  return { price: v, low: v * .93, high: v * 1.07, conf, demo: true };
+}
+
+async function predict(p) {
+  const wait = new Promise(r => setTimeout(r, 900));      // keeps the loading state readable
+  if (DEMO_MODE) {
+    const out = demoPrediction(p);
+    await wait;
+    return out;
+  }
+
+  let out, demo = false;
+  try {
+    const c = new AbortController(), t = setTimeout(() => c.abort(), 4000);
+    const r = await fetch(`${API}/predict`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(p), signal: c.signal });
+    clearTimeout(t);
+    if (!r.ok) throw 0;
+    const d = await r.json();
+    let v = +(d.predicted_price ?? d.price ?? d.prediction);
+    if (!(v > 0)) throw 0;
+    if (v > 1000) v /= 1e5;                               // rupees -> lakh
+    let conf = +d.confidence;
+    conf = conf > 0 ? (conf <= 1 ? conf * 100 : conf) : null;
+    out = { price: v, low: +d.low || v * .93, high: +d.high || v * 1.07, conf };
+  } catch {
+    demo = true;
+    out = demoPrediction(p);
+  }
+  if (!out.conf) out.conf = 85 + (hash(p.brand + p.model) % 9) - (p.fuel_type === 'Electric' ? 3 : 0);
+  await wait;
+  return { ...out, demo };
+}
+
+$('predict-form').addEventListener('submit', async (e) => {
+  e.preventDefault();
+  const p = {
+    brand: $('brand').value, model: $('model').value,
+    fuel_type: document.querySelector('input[name=fuel]:checked').value,
+    transmission: document.querySelector('input[name=trans]:checked').value,
+    budget: $('budget').value ? +$('budget').value : null
+  };
+  const btn = $('predict-btn');
+  btn.disabled = true; btn.innerHTML = '<i class="fa-solid fa-circle-notch fa-spin mr-2"></i>Analysing market data';
+  const r = await predict(p);
+  btn.disabled = false; btn.innerHTML = '<i class="fa-solid fa-bolt mr-2"></i>Run AI Price Estimation';
+  render(p, r); bumpPreds(1); saveHistory(p, r);
+  if (innerWidth < 1024) $('result-card').scrollIntoView({ behavior: 'smooth', block: 'start' });
+});
+
+function render(p, r) {
+  $('result-empty').classList.add('hidden'); $('result').classList.remove('hidden');
+  $('res-car').textContent = `${p.brand} ${p.model}`;
+  $('res-meta').textContent = `${p.fuel_type} · ${p.transmission}`;
+  const cp = $('conf-pill'), good = r.conf >= 90;
+  cp.innerHTML = `<i class="fa-solid fa-shield-halved mr-1.5"></i>${Math.round(r.conf)}% confidence`;
+  cp.className = 'px-3 py-1.5 rounded-full text-sm font-bold border ' + (good ? 'text-ice border-ice/40 bg-ice/10' : 'text-brand border-brand/40 bg-brand/10');
+  $('r-low').textContent = fmt(r.low); $('r-mid').textContent = fmt(r.price); $('r-high').textContent = fmt(r.high);
+
+  // Market benchmarks: illustrative figures derived from the model table
+  const avg = heur(p) * (0.96 + (hash(p.model) % 9) / 100);
+  const lo = avg * .8, hi = avg * 1.25;
+  const pct = Math.max(.04, Math.min(1, (r.price - lo) / (hi - lo)));
+  $('gauge-val').textContent = fmt(r.price);
+  $('gauge-lo').textContent = fmt(lo); $('gauge-hi').textContent = fmt(hi);
+  const arc = $('gauge-arc'); arc.style.transition = 'none'; arc.setAttribute('stroke-dashoffset', 100);
+  void arc.getBoundingClientRect(); arc.style.transition = ''; arc.setAttribute('stroke-dashoffset', 100 - pct * 100);
+
+  const rows = [['Your AI estimate', r.price, 'bg-gradient-to-r from-ice to-brand'], ['CarDekho average listing', avg, 'bg-slate-400'],
+                ['CarDekho certified', avg * 1.1, 'bg-slate-500'], ['Dealer trade-in', avg * .88, 'bg-slate-600']];
+  const max = Math.max(...rows.map(x => x[1]));
+  $('bench').innerHTML = rows.map(([n, v, c]) => `<div><div class="flex justify-between text-sm mb-1.5"><span class="text-slate-300">${n}</span><span class="font-bold">${fmt(v)}</span></div><div class="bg-white/5 rounded-full"><div class="bar ${c}" data-w="${(v / max * 100).toFixed(0)}"></div></div></div>`).join('');
+  requestAnimationFrame(() => requestAnimationFrame(() => document.querySelectorAll('#bench .bar').forEach(b => b.style.width = b.dataset.w + '%')));
+  const d = (r.price / avg - 1) * 100, chip = $('delta-chip');
+  chip.textContent = `${d >= 0 ? '+' : ''}${d.toFixed(1)}% vs average`;
+  chip.className = 'text-xs font-bold px-2.5 py-1 rounded-full ' + (d <= 0 ? 'bg-ice/10 text-ice' : 'bg-brand/10 text-brand');
+
+  const bn = $('budget-note');
+  if (p.budget) {
+    const diff = p.budget - r.price, ok = diff >= 0;
+    bn.textContent = ok ? `Within your budget with ${fmt(diff)} to spare.` : `${fmt(-diff)} over your ${fmt(p.budget)} target.`;
+    bn.className = 'mt-4 text-sm font-semibold rounded-xl px-4 py-3 border ' + (ok ? 'text-ice border-ice/40 bg-ice/10' : 'text-brand border-brand/40 bg-brand/10');
+  } else bn.className = 'hidden';
+  $('demo-note').classList.toggle('hidden', !r.demo);
+}
+
+/* ---------- History ---------- */
+let history = [];
+try { history = JSON.parse(localStorage.getItem('fra_history') || '[]'); } catch {}
+function saveHistory(p, r) {
+  history.unshift({ t: Date.now(), car: `${p.brand} ${p.model}`, meta: `${p.fuel_type} · ${p.transmission}`, price: r.price, conf: Math.round(r.conf) });
+  history = history.slice(0, 20);
+  try { localStorage.setItem('fra_history', JSON.stringify(history)); } catch {}
+}
+function renderHistory() {
+  $('history-list').innerHTML = history.length ? history.map(h => `
+    <div class="glass lift rounded-2xl p-4 flex items-center justify-between gap-4">
+      <div><div class="font-bold">${esc(h.car)}</div><div class="text-sm text-slate-400">${esc(h.meta)} · ${new Date(h.t).toLocaleString()}</div></div>
+      <div class="text-right"><div class="font-extrabold text-brand">${fmt(+h.price || 0)}</div><div class="text-xs text-slate-400">${+h.conf || 0}% confidence</div></div>
+    </div>`).join('')
+    : '<div class="glass rounded-2xl p-8 text-center text-slate-400">No valuations yet. Run one from the AI Predictor tab.</div>';
+}
+$('clear-history').addEventListener('click', () => { history = []; try { localStorage.removeItem('fra_history'); } catch {} renderHistory(); });
+</script>
+</body>
+</html>

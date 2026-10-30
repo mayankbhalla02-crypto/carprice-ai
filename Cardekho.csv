@@ -1,0 +1,405 @@
+model,url,price,Milage,fuel,Type,max_price
+Maruti Suzuki Jimny,https://www.cardekho.com/maruti/jimny,Rs.12.74 - 15.05 Lakh* ,16.39 to 16.94 kmp,Petrol,Manual/Automatic,1505000.0
+Maruti Suzuki FRONX,https://www.cardekho.com/maruti/fronx,Rs.7.46 - 13.13 Lakh* ,20.01 to 22.89 kmp,Petrol,Manual/Automatic,1313000.0
+Maruti Suzuki Brezza,https://www.cardekho.com/maruti/brezza,Rs.8.29 - 14.14 Lakh* ,19.8 kmpl to 25.51 km/kg,Petrol/CNG,Manual/Automatic,1414000.0
+Maruti Suzuki Invicto,https://www.cardekho.com/maruti/invicto,Rs.24.79 - 28.42 Lakh* ,23.24 kmplAutomatic,Petrol,None,2842000.0
+Maruti Suzuki Swift,https://www.cardekho.com/maruti/swift,Rs.5.99 - 9.03 Lakh* ,22.38 kmpl to 30.9 km/kg,Petrol/CNG,Manual/Automatic,902999.9999999999
+Maruti Suzuki Ertiga,https://www.cardekho.com/carmodels/Maruti/Maruti_Ertiga,Rs.8.64 - 13.08 Lakh* ,20.3 kmpl to 26.11 km/kg,Petrol/CNG,Manual/Automatic,1308000.0
+Maruti Suzuki Baleno,https://www.cardekho.com/carmodels/Maruti/Maruti_Baleno,Rs.6.61 - 9.88 Lakh* ,22.35 kmpl to 30.61 km/kg,Petrol/CNG,Manual/Automatic,988000.0000000001
+Maruti Suzuki Dzire,https://www.cardekho.com/maruti/swift-dzire,Rs.6.51 - 9.39 Lakh* ,22.41 kmpl to 31.12 km/kg,Petrol/CNG,Manual/Automatic,939000.0
+Maruti Suzuki Wagon R,https://www.cardekho.com/maruti/wagon-r,Rs.5.54 - 7.42 Lakh* ,23.56 kmpl to 34.05 km/kg,Petrol/CNG,Manual/Automatic,742000.0
+Maruti Suzuki Alto 800,https://www.cardekho.com/carmodels/Maruti/Maruti_Alto_800,Rs.3.54 - 5.13 Lakh* ,22.05 kmpl to 31.59 km/kg,Petrol/CNG,Manual,513000.0
+Maruti Suzuki Celerio,https://www.cardekho.com/carmodels/Maruti/Maruti_Celerio,Rs.5.37 - 7.14 Lakh* ,24.97 kmpl to 35.6 km/kg,Petrol/CNG,Manual/Automatic,714000.0
+Maruti Suzuki Alto K10,https://www.cardekho.com/maruti/alto-k10,Rs.3.99 - 5.96 Lakh* ,24.39 kmpl to 33.85 km/kg,Petrol/CNG,Manual/Automatic,596000.0
+Maruti Suzuki Eeco,https://www.cardekho.com/carmodels/Maruti/Maruti_Eeco,Rs.5.27 - 6.53 Lakh* ,19.71 to,Petrol/CNG,Manual,653000.0
+Maruti Suzuki XL6,https://www.cardekho.com/maruti/xl6,Rs.11.56 - 14.82 Lakh* ,20.27 kmpl to 26.32 km/kg,Petrol/CNG,Manual/Automatic,1482000.0
+Maruti Suzuki S-Presso,https://www.cardekho.com/maruti/s-presso,Rs.4.26 - 6.12 Lakh* ,24.12 kmpl to 32.73 km/kg,Petrol/CNG,Manual/Automatic,612000.0
+Maruti Suzuki Ignis,https://www.cardekho.com/carmodels/Maruti/Maruti_Ignis,Rs.5.84 - 8.16 Lakh* ,20.89 kmplManual,Petrol,Manual/Automatic,816000.0
+Maruti Suzuki Ciaz,https://www.cardekho.com/carmodels/Maruti/Maruti_Ciaz,Rs.9.30 - 12.29 Lakh* ,20.04 to 20.65 kmp,Petrol,Manual/Automatic,1229000.0
+Maruti Suzuki Ertiga Tour,https://www.cardekho.com/maruti/ertiga-tour,Rs.9.75 - 10.70 Lakh* ,18.04 kmpl to 26.08 km/kg,Petrol/CNG,Manual,1070000.0
+Maruti Suzuki Alto 800 tour,https://www.cardekho.com/maruti/alto-800-tour,Rs.4.20 Lakh* ,22.05 kmplManual,Petrol,Manual,420000.0
+Maruti Suzuki Super Carry,https://www.cardekho.com/maruti/super-carry,Rs.5.16 - 6.30 Lakh* ,None,Petrol/CNG,Manual,630000.0
+Maruti Suzuki Eeco Cargo,https://www.cardekho.com/maruti/eeco-cargo,Rs.5.42 - 6.74 Lakh* ,20.2 kmpl to 27.05 km/kg,Petrol/CNG,Manual,674000.0
+Maruti Suzuki Wagon R tour,https://www.cardekho.com/maruti/wagon-r-tour,Rs.5.51 - 6.42 Lakh* ,25.4 kmpl to 34.73 km/kg,Petrol/CNG,Manual,642000.0
+Maruti Suzuki Swift Dzire Tour,https://www.cardekho.com/maruti/swift-dzire-tour,Rs.6.51 - 7.36 Lakh* ,23.15 kmpl to 31.12 km/kg,Petrol/CNG,Manual,736000.0
+Maruti Suzuki Grand Vitara,https://www.cardekho.com/carmodels/Maruti/Maruti_Grand_Vitara,Rs.10.70 - 19.79 Lakh* ,19.38 to 27.97 kmp,Petrol/CNG,Manual/Automatic,1979000.0
+Maruti Swift 2023,https://www.cardekho.com/maruti/swift-2023,Rs6 Lakh* ,None,None,None,600000.0
+Maruti Swift Hybrid,https://www.cardekho.com/maruti/swift-hybrid,Rs10 Lakh* ,None,None,None,1000000.0
+Maruti eVX,https://www.cardekho.com/maruti/evx,Rs25 Lakh* ,None,None,None,2500000.0
+Maruti XL5,https://www.cardekho.com/maruti/xl5,Rs5 Lakh* ,None,None,None,500000.0
+Maruti WagonR Electric,https://www.cardekho.com/maruti/wagonr-electric,Rs8.50 Lakh* ,None,None,None,850000.0
+Hyundai Creta,https://www.cardekho.com/hyundai/creta,Rs.10.87 - 19.20 Lakh* ,16.8 kmplManual,Petrol,Manual/Automatic,1920000.0
+Hyundai Verna,https://www.cardekho.com/hyundai/verna,Rs.10.96 - 17.38 Lakh* ,18.6 to 20.6 kmp,Petrol,Manual/Automatic,1738000.0
+Hyundai Venue,https://www.cardekho.com/hyundai/venue,Rs.7.72 - 13.18 Lakh* ,None,Petrol,Manual/Automatic,1318000.0
+Hyundai i20,https://www.cardekho.com/carmodels/Hyundai/Hyundai_i20,Rs.7.46 - 11.88 Lakh* ,19.65 to 21.0 kmp,Petrol,Manual/Automatic,1188000.0
+Hyundai Aura,https://www.cardekho.com/hyundai/aura,Rs.6.33 - 8.90 Lakh* ,None,Petrol/CNG,Manual/Automatic,890000.0
+Hyundai Alcazar,https://www.cardekho.com/hyundai/alcazar,Rs.16.77 - 21.13 Lakh* ,20.4 kmplManual,Petrol,Manual/Automatic,2113000.0
+Hyundai Tucson,https://www.cardekho.com/hyundai/tucson,Rs.28.63 - 35.46 Lakh* ,None,Petrol,None,3546000.0
+Hyundai Kona Electric,https://www.cardekho.com/hyundai/kona,Rs.23.84 - 24.03 Lakh* ,None,None,None,2403000.0
+Hyundai Venue N Line,https://www.cardekho.com/hyundai/venue-n-line,Rs.12.67 - 13.81 Lakh* ,None,Petrol,None,1381000.0
+Hyundai Grand i10 Nios,https://www.cardekho.com/hyundai/grand-i10-nios,Rs.5.73 - 8.51 Lakh* ,None,Petrol/CNG,Manual/Automatic,851000.0
+Hyundai i20 N Line,https://www.cardekho.com/hyundai/i20-n-line,Rs.10.19 - 12.31 Lakh* ,20.0 to 20.25 kmp,Petrol,Manual/Automatic,1231000.0
+Hyundai IONIQ 5,https://www.cardekho.com/hyundai/ioniq-5,Rs.44.95 Lakh* ,None,None,None,4495000.0
+Hyundai Exter,https://www.cardekho.com/hyundai/exter,Rs6 Lakh* ,None,None,None,600000.0
+Hyundai Palisade,https://www.cardekho.com/hyundai/palisade,Rs40 Lakh* ,None,None,None,4000000.0
+Hyundai i20 2023,https://www.cardekho.com/hyundai/i20-2023,Rs7.60 Lakh* ,None,None,None,760000.0
+Hyundai i20 N Line 2023,https://www.cardekho.com/hyundai/i20-n-line-2023,Rs10.30 Lakh* ,None,None,None,1030000.0000000001
+Hyundai Staria,https://www.cardekho.com/hyundai/staria,Rs20 Lakh* ,None,None,None,2000000.0
+Tata Nexon,https://www.cardekho.com/tata/nexon,Rs.7.80 - 14.50 Lakh* ,24.07 kmplManual,Petrol,Manual/Automatic,1450000.0
+Tata Punch,https://www.cardekho.com/tata/punch,Rs.6 - 9.52 Lakh* ,20.09 kmplManual,Petrol,Manual/Automatic,952000.0
+Tata Harrier,https://www.cardekho.com/tata/harrier,Rs.15 - 24.07 Lakh* ,14.6 to 16.35 kmp,None,Manual/Automatic,2407000.0
+Tata Altroz,https://www.cardekho.com/tata/altroz,Rs.6.60 - 10.74 Lakh* ,23.64 kmplManual,Petrol/CNG,Manual/Automatic,1074000.0
+Tata Tiago,https://www.cardekho.com/carmodels/Tata/Tata_Tiago,Rs.5.60 - 8.11 Lakh* ,19.0 kmpl to 26.49 km/kg,Petrol/CNG,Manual/Automatic,811000.0
+Tata Safari,https://www.cardekho.com/carmodels/Tata/Tata_New_Safari,Rs.15.65 - 25.02 Lakh* ,14.08 to 16.14 kmp,None,Manual/Automatic,2502000.0
+Tata Tiago EV,https://www.cardekho.com/tata/tiago-ev,Rs.8.69 - 12.04 Lakh* ,None,None,None,1204000.0
+Tata Tigor,https://www.cardekho.com/tata/tigor,Rs.6.30 - 8.90 Lakh* ,19.28 kmpl to 26.49 km/kg,Petrol/CNG,Manual/Automatic,890000.0
+Tata Tigor EV,https://www.cardekho.com/tata/tigor-ev,Rs.12.49 - 13.75 Lakh* ,None,None,None,1375000.0
+Tata Tiago NRG,https://www.cardekho.com/tata/tiago-nrg,Rs.6.68 - 8.01 Lakh* ,20.09 kmpl to 26.49 km/kg,Petrol/CNG,Manual/Automatic,801000.0
+Tata Nexon EV Max,https://www.cardekho.com/tata/nexon-ev-max,Rs.16.49 - 19.54 Lakh* ,None,None,None,1954000.0
+Tata Yodha Pickup,https://www.cardekho.com/tata/yodha-pickup,Rs.6.95 - 7.50 Lakh* ,None,None,Manual,750000.0
+Tata Nexon EV Prime,https://www.cardekho.com/tata/nexon-ev-prime,Rs.14.49 - 17.19 Lakh* ,None,None,None,1719000.0000000002
+Tata Punch CNG,https://www.cardekho.com/overview/Tata_Punch/Tata_Punch_CNG.htm,Rs10.14 Lakh* ,None,None,None,1014000.0
+Tata Punch EV,https://www.cardekho.com/tata/punch-ev,Rs12 Lakh* ,None,None,None,1200000.0
+Tata Altroz Racer,https://www.cardekho.com/tata/altroz-racer,Rs10 Lakh* ,None,None,None,1000000.0
+Tata Harrier 2024,https://www.cardekho.com/tata/harrier-2024,Rs15 Lakh* ,None,None,None,1500000.0
+Tata Safari 2024,https://www.cardekho.com/carmodels/Tata/Tata_Safari_2024,Rs16 Lakh* ,None,None,None,1600000.0
+Mahindra Thar,https://www.cardekho.com/mahindra/thar,Rs.10.54 - 16.78 Lakh* ,15.2 kmplManual,Petrol,Manual/Automatic,1678000.0
+Mahindra XUV700,https://www.cardekho.com/mahindra/xuv700,Rs.14.01 - 26.18 Lakh* ,None,Petrol,Manual/Automatic,2618000.0
+Mahindra Bolero,https://www.cardekho.com/mahindra/bolero,Rs.9.78 - 10.79 Lakh* ,16.0 kmplManual,None,Manual,1079000.0
+Mahindra Scorpio-N,https://www.cardekho.com/mahindra/scorpio-n,Rs.13.05 - 24.52 Lakh* ,None,Petrol,Manual/Automatic,2452000.0
+Mahindra XUV300,https://www.cardekho.com/mahindra/xuv300,Rs.8.41 - 14.60 Lakh* ,16.5 to 20.1 kmp,Petrol,Manual/Automatic,1460000.0
+Mahindra Scorpio Classic,https://www.cardekho.com/mahindra/scorpio-classic,Rs.13 - 16.81 Lakh* ,None,None,Manual,1680999.9999999998
+Mahindra Bolero Neo,https://www.cardekho.com/mahindra/bolero-neo,Rs.9.63 - 12.14 Lakh* ,17.29 kmplManual,None,Manual,1214000.0
+Mahindra Marazzo,https://www.cardekho.com/mahindra/marazzo,Rs.13.71 - 16.46 Lakh* ,17.3 kmplManual,None,Manual,1646000.0
+Mahindra Bolero Camper,https://www.cardekho.com/mahindra/bolero-camper,Rs.9.27 - 9.76 Lakh* ,16.0 kmplManual,None,Manual,976000.0
+Mahindra KUV 100 NXT,https://www.cardekho.com/mahindra/kuv-100-nxt,Rs.6.18 - 7.84 Lakh* ,18.15 kmplManual,Petrol,Manual,784000.0
+Mahindra XUV400 EV,https://www.cardekho.com/mahindra/xuv400-ev,Rs.15.99 - 18.99 Lakh* ,None,None,None,1898999.9999999998
+Mahindra Bolero Maxitruck Plus,https://www.cardekho.com/mahindra/bolero-maxi-truck-plus,Rs.7.49 - 7.89 Lakh* ,17.2 kmplManual,None,Manual,789000.0
+Mahindra Bolero PikUp ExtraLong,https://www.cardekho.com/mahindra/bolero-pik-up-extra-long,Rs.8.85 - 9.12 Lakh* ,14.3 kmplManual,None,Manual,911999.9999999999
+Mahindra E Verito,https://www.cardekho.com/mahindra/e-verito,Rs.9.13 - 9.46 Lakh* ,None,None,None,946000.0000000001
+Mahindra BOLERO PikUP ExtraStrong,https://www.cardekho.com/mahindra/bolero-pik-up-extra-strong,Rs.8.71 - 9.39 Lakh* ,None,None,Manual,939000.0
+Mahindra Bolero Neo Plus,https://www.cardekho.com/mahindra/bolero-neo-plus,Rs10 Lakh* ,None,None,None,1000000.0
+Mahindra Thar 5-Door,https://www.cardekho.com/mahindra/thar-5-door,Rs15 Lakh* ,None,None,None,1500000.0
+Mahindra XUV300 2024,https://www.cardekho.com/mahindra/xuv300-2024,Rs9 Lakh* ,None,None,None,900000.0
+Mahindra XUV900,https://www.cardekho.com/mahindra/xuv900,Rs25 Lakh* ,None,None,None,2500000.0
+Mahindra XUV500 2024,https://www.cardekho.com/mahindra/xuv500-2022,Rs12 Lakh* ,None,None,None,1200000.0
+Kia Seltos,https://www.cardekho.com/kia/seltos,Rs.10.89 - 19.65 Lakh* ,20.8 kmplManual,Petrol,Manual/Automatic,1964999.9999999998
+Kia Sonet,https://www.cardekho.com/kia/sonet,Rs.7.79 - 14.89 Lakh* ,18.4 kmplManual,Petrol,Manual/Automatic,1489000.0
+Kia EV6,https://www.cardekho.com/kia/ev6,Rs.60.95 - 65.95 Lakh* ,None,None,None,6595000.0
+Kia Carens,https://www.cardekho.com/kia/carens,Rs.10.45 - 18.95 Lakh* ,16.8 kmplManual,Petrol,Manual/Automatic,1895000.0
+Kia Sportage,https://www.cardekho.com/kia/sportage,Rs25 Lakh* ,None,None,None,2500000.0
+Kia Seltos 2023,https://www.cardekho.com/kia/seltos-2023,Rs20.54 Lakh* ,None,None,None,2054000.0
+Kia Sonet 2024,https://www.cardekho.com/kia/sonet-2024,Rs8 Lakh* ,None,None,None,800000.0
+Kia Carnival,https://www.cardekho.com/kia/carnival,Rs40 Lakh* ,None,None,None,4000000.0
+Kia EV9,https://www.cardekho.com/kia/ev9,Rs80 Lakh* ,None,None,None,8000000.0
+Skoda Kushaq,https://www.cardekho.com/skoda/kushaq,Rs.11.59 - 19.69 Lakh* ,18.09 to 19.76 kmp,Petrol,Manual/Automatic,1969000.0000000002
+Skoda Slavia,https://www.cardekho.com/carmodels/Skoda/Skoda_Slavia,Rs.11.39 - 18.68 Lakh* ,18.07 to 19.47 kmp,Petrol,Manual/Automatic,1868000.0
+Skoda Superb,https://www.cardekho.com/skoda/superb,Rs.34.19 - 37.29 Lakh* ,15.1 kmplAutomatic,Petrol,None,3729000.0
+Skoda Kodiaq,https://www.cardekho.com/skoda/kodiaq,Rs.37.99 - 41.39 Lakh* ,12.78 kmplAutomatic,Petrol,None,4139000.0
+Skoda Enyaq iV,https://www.cardekho.com/skoda/enyaq-iv,Rs60 Lakh* ,None,None,None,6000000.0
+Skoda Octavia RS iV,https://www.cardekho.com/skoda/octavia-rs-iv,Rs40 Lakh* ,None,None,None,4000000.0
+Skoda Kodiaq 2024,https://www.cardekho.com/skoda/kodiaq-2024,Rs40 Lakh* ,None,None,None,4000000.0
+Skoda Superb 2024,https://www.cardekho.com/skoda/superb-2024,Rs36 Lakh* ,None,None,None,3600000.0
+Renault KWID,https://www.cardekho.com/carmodels/Renault/Renault_KWID,Rs.4.70 - 6.33 Lakh* ,21.46 to 22.3 kmp,Petrol,Manual/Automatic,633000.0
+Renault Triber,https://www.cardekho.com/renault/triber,Rs.6.33 - 8.97 Lakh* ,18.2 to 20.0 kmp,Petrol,Manual/Automatic,897000.0000000001
+Renault Kiger,https://www.cardekho.com/renault/kiger,Rs.6.50 - 11.23 Lakh* ,18.24 to 20.5 kmp,Petrol,Manual/Automatic,1123000.0
+Renault Arkana,https://www.cardekho.com/renault/arkana,Rs20 Lakh* ,None,None,None,2000000.0
+Renault Duster 2025,https://www.cardekho.com/renault/duster-2025,Rs10 Lakh* ,None,None,None,1000000.0
+Volkswagen Virtus,https://www.cardekho.com/volkswagen/virtus,Rs.11.48 - 18.77 Lakh* ,18.12 to 19.4 kmp,Petrol,Manual/Automatic,1877000.0
+Volkswagen Taigun,https://www.cardekho.com/volkswagen/taigun,Rs.11.62 - 19.46 Lakh* ,17.88 to 20.08 kmp,Petrol,Manual/Automatic,1946000.0
+Volkswagen Tiguan,https://www.cardekho.com/volkswagen/tiguan,Rs.34.70 Lakh* ,12.65 kmplAutomatic,Petrol,None,3470000.0000000005
+Volkswagen Polo 2023,https://www.cardekho.com/volkswagen/polo-2022,Rs8 Lakh* ,None,None,None,800000.0
+Volkswagen ID.7,https://www.cardekho.com/volkswagen/id.7,Rs70 Lakh* ,None,None,None,7000000.0
+Volkswagen Tiguan 2025,https://www.cardekho.com/volkswagen/tiguan-2025,Rs37 Lakh* ,None,None,None,3700000.0
+Volkswagen ID.4,https://www.cardekho.com/volkswagen/id.4,Rs45 Lakh* ,None,None,None,4500000.0
+MG Hector,https://www.cardekho.com/mg/hector,Rs.15 - 22.12 Lakh* ,15.58 kmplManual,Petrol,Manual/Automatic,2212000.0
+MG Comet EV,https://www.cardekho.com/mg/comet-ev,Rs.7.98 - 9.98 Lakh* ,None,None,None,998000.0
+MG Astor,https://www.cardekho.com/mg/astor,Rs.10.82 - 18.69 Lakh* ,15.43 kmplManual,Petrol,Manual/Automatic,1869000.0000000002
+MG Gloster,https://www.cardekho.com/mg/gloster,Rs.38.08 - 43.08 Lakh* ,12.04 to 13.92 kmp,None,None,4308000.0
+MG Hector Plus,https://www.cardekho.com/mg/hector-plus,Rs.18 - 22.97 Lakh* ,12.34 to 15.58 kmp,Petrol,Manual/Automatic,2297000.0
+MG ZS EV,https://www.cardekho.com/mg/zs-ev,Rs.23.38 - 27.40 Lakh* ,None,None,None,2740000.0
+MG RC-6,https://www.cardekho.com/mg/rc-6,Rs18 Lakh* ,None,None,None,1800000.0
+MG 3,https://www.cardekho.com/mg/3,Rs6 Lakh* ,None,None,None,600000.0
+MG Baojun 510,https://www.cardekho.com/mg/baojun-510,Rs11 Lakh* ,None,None,None,1100000.0
+MG 5 EV,https://www.cardekho.com/mg/5-ev,Rs27 Lakh* ,None,None,None,2700000.0
+MG eHS,https://www.cardekho.com/mg/ehs,Rs30 Lakh* ,None,None,None,3000000.0
+Honda City,https://www.cardekho.com/honda/city,Rs.11.57 - 16.05 Lakh* ,17.8 to 18.4 kmp,Petrol,Manual/Automatic,1605000.0
+Honda Amaze,https://www.cardekho.com/honda/amaze,Rs.7.05 - 9.66 Lakh* ,18.3 to 18.6 kmp,Petrol,Manual/Automatic,966000.0
+Honda City Hybrid,https://www.cardekho.com/honda/city-hybrid,Rs.18.89 - 20.39 Lakh* ,27.13 kmplAutomatic,Petrol,None,2039000.0
+Honda WR-V,https://www.cardekho.com/honda/wr-v,Rs8 Lakh* ,None,None,None,800000.0
+Honda Elevate,https://www.cardekho.com/honda/elevate,Rs12 Lakh* ,None,None,None,1200000.0
+Toyota Innova Crysta,https://www.cardekho.com/toyota/innova-crysta,Rs.19.99 - 25.68 Lakh* ,None,None,Manual,2568000.0
+Toyota Fortuner,https://www.cardekho.com/carmodels/Toyota/Toyota_Fortuner,Rs.32.99 - 50.74 Lakh* ,10.0 kmplManual,Petrol,Manual/Automatic,5074000.0
+Toyota Land Cruiser 300,https://www.cardekho.com/toyota/land-cruiser-300,Rs.2.10 Cr* ,None,None,None,21000000.0
+Toyota Urban Cruiser Hyryder,https://www.cardekho.com/toyota/hyryder,Rs.10.86 - 19.99 Lakh* ,19.39 to 27.97 kmp,Petrol/CNG,Manual/Automatic,1998999.9999999998
+Toyota Hilux,https://www.cardekho.com/toyota/hilux,Rs.30.40 - 37.90 Lakh* ,None,None,Manual/Automatic,3790000.0
+Toyota Vellfire,https://www.cardekho.com/toyota/vellfire,Rs.96.55 Lakh* ,16.35 kmplAutomatic,Petrol,None,9655000.0
+Toyota Camry,https://www.cardekho.com/toyota/camry,Rs.46.17 Lakh* ,None,Petrol,None,4617000.0
+Toyota Fortuner Legender,https://www.cardekho.com/toyota/fortuner-legender,Rs.43.22 - 46.94 Lakh* ,None,None,None,4694000.0
+Toyota Glanza,https://www.cardekho.com/toyota/glanza,Rs.6.81 - 10 Lakh* ,22.35 kmpl to 30.61 km/kg,Petrol/CNG,Manual/Automatic,1000000.0
+Toyota Innova Hycross,https://www.cardekho.com/toyota/innova-hycross,Rs.18.82 - 30.26 Lakh* ,16.13 to 23.24 kmp,Petrol,None,3026000.0
+Toyota Belta,https://www.cardekho.com/toyota/belta,Rs10 Lakh* ,None,None,None,1000000.0
+Toyota Innova Crysta 2.4 G 8 STR,https://www.cardekho.com/overview/Toyota_Innova_Crysta/Toyota_Innova_Crysta_2.4_G_8_STR.htm,Rs20.50 Lakh* ,None,None,None,2050000.0
+Toyota Innova Crysta 2.4 G 7 STR,https://www.cardekho.com/overview/Toyota_Innova_Crysta/Toyota_Innova_Crysta_2.4_G_7_STR.htm,Rs20 Lakh* ,None,None,None,2000000.0
+Toyota Rumion,https://www.cardekho.com/carmodels/Toyota/Toyota_Rumion,Rs8.77 Lakh* ,None,None,None,877000.0
+Toyota bZ4X,https://www.cardekho.com/toyota/bz4x,Rs70 Lakh* ,None,None,None,7000000.0
+Mercedes-Benz GLA,https://www.cardekho.com/carmodels/Mercedes-Benz/Mercedes-Benz_GLA,Rs.48.50 - 52.70 Lakh* ,None,Petrol,None,5270000.0
+Mercedes-Benz S-Class,https://www.cardekho.com/mercedes-benz/s-class,Rs.1.71 - 2.17 Cr* ,13.38 kmplAutomatic,Petrol,None,21700000.0
+Mercedes-Benz E-Class,https://www.cardekho.com/mercedes-benz/e-class,Rs.75 - 88 Lakh* ,16.1 kmplAutomatic,Petrol,None,8800000.0
+Mercedes-Benz GLE,https://www.cardekho.com/mercedes-benz/gle,Rs.90 Lakh - 1.08 Cr* ,9.7 kmplAutomatic,Petrol,None,10800000.0
+Mercedes-Benz GLS,https://www.cardekho.com/mercedes-benz/gls,Rs.1.21 - 2.92 Cr* ,None,Petrol,None,29200000.0
+Mercedes-Benz C-Class,https://www.cardekho.com/carmodels/Mercedes-Benz/Mercedes-Benz_C-Class,Rs.60 - 66 Lakh* ,23.0 kmplAutomatic,Petrol,None,6600000.0
+Mercedes-Benz AMG G 63,https://www.cardekho.com/mercedes-benz/amg-g-63,Rs.3.30 Cr* ,None,Petrol,None,33000000.0
+Mercedes-Benz EQS,https://www.cardekho.com/mercedes-benz/eqs,Rs.1.59 - 2.45 Cr* ,None,None,None,24500000.0
+Mercedes-Benz Maybach S-Class,https://www.cardekho.com/mercedes-benz/maybach-s-class,Rs.2.69 - 3.40 Cr* ,None,Petrol,None,34000000.0
+Mercedes-Benz AMG GLE 63 S,https://www.cardekho.com/mercedes-benz/amg-gle-63-s,Rs.2.23 Cr* ,8.26 kmplAutomatic,Petrol,None,22300000.0
+Mercedes-Benz AMG E 53,https://www.cardekho.com/mercedes-benz/amg-e-53,Rs.1.06 Cr* ,None,Petrol,Manual,10600000.0
+Mercedes-Benz AMG SL,https://www.cardekho.com/mercedes-benz/amg-sl,Rs.2.35 Cr* ,None,Petrol,None,23500000.0
+Mercedes-Benz GLB,https://www.cardekho.com/mercedes-benz/glb,Rs.63.80 - 69.80 Lakh* ,None,Petrol,None,6980000.0
+Mercedes-Benz GLC Coupe,https://www.cardekho.com/mercedes-benz/glc-coupe,Rs.72.50 - 73.50 Lakh* ,12.74 to 16.34 kmp,Petrol,None,7350000.0
+Mercedes-Benz G-Class,https://www.cardekho.com/mercedes-benz/g-class,Rs.2.55 Cr* ,None,None,None,25500000.0
+Mercedes-Benz A-Class Limousine,https://www.cardekho.com/mercedes-benz/a-class-limousine,Rs.42 - 44 Lakh* ,None,Petrol,None,4400000.0
+Mercedes-Benz AMG A 45 S,https://www.cardekho.com/mercedes-benz/amg-a-45-s,Rs.92.50 Lakh* ,None,Petrol,None,9250000.0
+Mercedes-Benz AMG GLE 53,https://www.cardekho.com/mercedes-benz/amg-gle-53,Rs.1.71 Cr* ,None,Petrol,None,17100000.0
+Mercedes-Benz EQB,https://www.cardekho.com/mercedes-benz/eqb,Rs.77.50 Lakh* ,None,None,None,7750000.0
+Mercedes-Benz AMG GLC 43,https://www.cardekho.com/mercedes-benz/amg-glc-43,Rs.87 Lakh* ,None,Petrol,None,8700000.0
+Mercedes-Benz EQC,https://www.cardekho.com/mercedes-benz/eqc,Rs.99.50 Lakh* ,None,None,None,9950000.0
+Mercedes-Benz AMG A 35,https://www.cardekho.com/mercedes-benz/amg-a-35,Rs.58 Lakh* ,None,Petrol,None,5800000.0
+Mercedes-Benz AMG E 53 Cabriolet,https://www.cardekho.com/mercedes-benz/amg-e-53-cabriolet,Rs.1.30 Cr* ,None,Petrol,None,13000000.0
+Mercedes-Benz AMG E 63,https://www.cardekho.com/mercedes-benz/amg-e-63,Rs.1.77 Cr* ,8.62 kmplAutomatic,Petrol,None,17700000.0
+Mercedes-Benz AMG GLA 35,https://www.cardekho.com/mercedes-benz/amg-gla-35,Rs.63.50 Lakh* ,None,Petrol,None,6350000.0
+Mercedes-Benz AMG GT 4 Door Coupe,https://www.cardekho.com/mercedes-benz/amg-gt-4-door-coupe,Rs.3.30 Cr* ,None,Petrol,None,33000000.0
+Mercedes-Benz GLC 2023,https://www.cardekho.com/mercedes-benz/glc-2023,Rs60 Lakh* ,None,None,None,6000000.0
+Mercedes-Benz EQA,https://www.cardekho.com/mercedes-benz/eqa,Rs60 Lakh* ,None,None,None,6000000.0
+Mercedes-Benz GLC Coupe 2023,https://www.cardekho.com/mercedes-benz/glc-coupe-2023,Rs65 Lakh* ,None,None,None,6500000.0
+Mercedes-Benz EQE SUV,https://www.cardekho.com/mercedes-benz/eqe-suv,Rs1.25 Cr* ,None,None,None,12500000.0
+Mercedes-Benz GLA 2024,https://www.cardekho.com/mercedes-benz/gla-2024,Rs48 Lakh* ,None,None,None,4800000.0
+Jeep Compass,https://www.cardekho.com/jeep/compass,Rs.21.44 - 29.44 Lakh* ,14.1 to 17.1 kmp,Petrol,Manual/Automatic,2944000.0
+Jeep Wrangler,https://www.cardekho.com/jeep/wrangler,Rs.59.05 - 63.05 Lakh* ,12.1 kmplAutomatic,Petrol,None,6305000.0
+Jeep Meridian,https://www.cardekho.com/jeep/meridian,Rs.32.95 - 38.52 Lakh* ,None,None,Manual/Automatic,3852000.0000000005
+Jeep Grand Cherokee,https://www.cardekho.com/jeep/grand-cherokee,Rs.78.50 Lakh* ,None,Petrol,None,7850000.0
+Jeep Renegade,https://www.cardekho.com/jeep/renegade,Rs10 Lakh* ,None,None,None,1000000.0
+Jeep Sub-4m SUV,https://www.cardekho.com/jeep/sub-4m-suv,Rs10 Lakh* ,None,None,None,1000000.0
+Jeep Wrangler 2024,https://www.cardekho.com/jeep/wrangler-2024,Rs65 Lakh* ,None,None,None,6500000.0
+Jeep Avenger,https://www.cardekho.com/jeep/avenger,Rs50 Lakh* ,None,None,None,5000000.0
+Nissan Magnite,https://www.cardekho.com/nissan/magnite,Rs.6 - 11.02 Lakh* ,20.0 kmplManual,Petrol,Manual/Automatic,1102000.0
+Nissan Kicks,https://www.cardekho.com/nissan/kicks,Rs.9.50 - 14.90 Lakh* ,14.23 kmplManual,Petrol,Manual/Automatic,1490000.0
+Nissan X-Trail,https://www.cardekho.com/carmodels/Nissan/Nissan_X-Trail,Rs40 Lakh* ,None,None,None,4000000.0
+Nissan Qashqai,https://www.cardekho.com/nissan/qashqai,Rs30 Lakh* ,None,None,None,3000000.0
+Nissan Juke,https://www.cardekho.com/nissan/juke,Rs25 Lakh* ,None,None,None,2500000.0
+Nissan Compact MPV,https://www.cardekho.com/nissan/compact-mpv,Rs6 Lakh* ,None,None,None,600000.0
+Nissan Compact SUV,https://www.cardekho.com/nissan/compact-suv,Rs10 Lakh* ,None,None,None,1000000.0
+BMW XM,https://www.cardekho.com/bmw/xm,Rs.2.60 Cr* ,61.9 kmplAutomatic,Petrol,None,26000000.0
+BMW X1,https://www.cardekho.com/bmw/x1,Rs.45.90 - 50.90 Lakh* ,16.35 to 20.37 kmp,Petrol,None,5090000.0
+BMW X7,https://www.cardekho.com/bmw/x7,Rs.1.22 - 1.25 Cr* ,11.29 to 14.31 kmp,Petrol,None,12500000.0
+BMW Z4,https://www.cardekho.com/bmw/z4,Rs.89.30 Lakh* ,None,Petrol,None,8930000.0
+BMW X5,https://www.cardekho.com/carmodels/BMW/BMW_X5,Rs.98.50 - 99.90 Lakh* ,11.24 to 13.38 kmp,Petrol,None,9990000.0
+BMW X3,https://www.cardekho.com/bmw/x3,Rs.67.50 - 86.50 Lakh* ,16.55 kmplAutomatic,Petrol,None,8650000.0
+BMW 7 Series,https://www.cardekho.com/bmw/7-series,Rs.1.70 Cr* ,None,Petrol,None,17000000.0
+BMW i7,https://www.cardekho.com/bmw/i7,Rs.1.95 Cr* ,None,None,None,19500000.0
+BMW 3 Series,https://www.cardekho.com/bmw/3-series,Rs.69.20 Lakh* ,13.02 kmplAutomatic,Petrol,None,6920000.0
+BMW iX,https://www.cardekho.com/bmw/ix,Rs.1.24 Cr* ,None,None,None,12400000.0
+BMW 5 Series,https://www.cardekho.com/bmw/5-series,Rs.65.40 - 68.90 Lakh* ,14.82 to 17.42 kmp,Petrol,None,6890000.000000001
+BMW M2,https://www.cardekho.com/bmw/m2,Rs.98 Lakh* ,10.13 kmplAutomatic,Petrol,None,9800000.0
+BMW 2 Series,https://www.cardekho.com/bmw/2-series,Rs.43.50 - 45.50 Lakh* ,14.82 to 18.64 kmp,Petrol,None,4550000.0
+BMW i4,https://www.cardekho.com/bmw/i4,Rs.73.90 - 77.50 Lakh* ,None,None,None,7750000.0
+BMW 6 Series,https://www.cardekho.com/carmodels/BMW/BMW_6_Series,Rs.71.90 - 73.90 Lakh* ,13.32 to 18.65 kmp,Petrol,None,7390000.000000001
+BMW M4 Competition,https://www.cardekho.com/bmw/m4-competition,Rs.1.48 Cr* ,None,Petrol,None,14800000.0
+BMW 3 Series Gran Limousine,https://www.cardekho.com/bmw/3-series-gran-limousine,Rs.58.90 - 60.50 Lakh* ,15.39 to 19.61 kmp,Petrol,None,6050000.0
+BMW M8 Coupe Competition,https://www.cardekho.com/bmw/m8-coupe-competition,Rs.2.44 Cr* ,8.7 kmplAutomatic,Petrol,None,24400000.0
+BMW iX1,https://www.cardekho.com/bmw/ix1,Rs60 Lakh* ,None,None,None,6000000.0
+BMW M3,https://www.cardekho.com/bmw/m3,Rs65 Lakh* ,None,None,None,6500000.0
+BMW X6,https://www.cardekho.com/bmw/x6,Rs1.49 Cr* ,None,None,None,14900000.0
+BMW i5,https://www.cardekho.com/bmw/i5,Rs1 Cr* ,None,None,None,10000000.0
+BMW 5 Series 2024,https://www.cardekho.com/bmw/5-series-2024,Rs70 Lakh* ,None,None,None,7000000.0
+Audi Q5,https://www.cardekho.com/audi/q5,Rs.61.51 - 67.31 Lakh* ,13.47 kmplAutomatic,Petrol,None,6731000.0
+Audi A4,https://www.cardekho.com/audi/a4,Rs.43.85 - 51.85 Lakh* ,None,Petrol,None,5185000.0
+Audi A6,https://www.cardekho.com/carmodels/Audi/Audi_A6,Rs.61.60 - 67.76 Lakh* ,14.11 kmplAutomatic,Petrol,None,6776000.000000001
+Audi Q3,https://www.cardekho.com/audi/q3,Rs.44.89 - 50.39 Lakh* ,None,Petrol,None,5039000.0
+Audi Q7,https://www.cardekho.com/audi/q7,Rs.84.70 - 92.30 Lakh* ,11.21 kmplAutomatic,Petrol,None,9230000.0
+Audi RS5,https://www.cardekho.com/carmodels/Audi/Audi_RS5,Rs.1.13 Cr* ,8.8 kmplAutomatic,Petrol,None,11299999.999999998
+Audi e-tron GT,https://www.cardekho.com/audi/e-tron-gt,Rs.1.70 Cr* ,None,None,None,17000000.0
+Audi e-tron,https://www.cardekho.com/audi/e-tron,Rs.1.02 - 1.26 Cr* ,None,None,None,12600000.0
+Audi Q8,https://www.cardekho.com/audi/q8,Rs.1.07 - 1.43 Cr* ,9.8 kmplAutomatic,Petrol,None,14300000.0
+Audi RS e-tron GT,https://www.cardekho.com/audi/rs-e-tron-gt,Rs.1.94 Cr* ,None,None,None,19400000.0
+Audi Q3 Sportback,https://www.cardekho.com/audi/q3-sportback,Rs.51.43 Lakh* ,None,Petrol,None,5143000.0
+Audi S5 Sportback,https://www.cardekho.com/audi/s5-sportback,Rs.75.74 Lakh* ,10.6 kmplAutomatic,Petrol,None,7573999.999999999
+Audi A8L,https://www.cardekho.com/audi/a8-l,Rs.1.34 - 1.63 Cr* ,None,Petrol,None,16299999.999999998
+Audi RS Q8,https://www.cardekho.com/audi/rs-q8,Rs.2.22 Cr* ,8.26 kmplAutomatic,Petrol,None,22200000.000000004
+Audi A3 2023,https://www.cardekho.com/carmodels/Audi/Audi_A3_2021,Rs35 Lakh* ,None,None,None,3500000.0
+Audi Q8 e-tron,https://www.cardekho.com/audi/q8-e-tron,Rs1.10 Cr* ,None,None,None,11000000.0
+Isuzu D-Max,https://www.cardekho.com/isuzu/d-max,Rs.10.55 - 11.40 Lakh* ,None,None,Manual,1140000.0
+Isuzu MU-X,https://www.cardekho.com/isuzu/mu-x,Rs.35 - 37.90 Lakh* ,12.31 to 13.0 kmp,None,None,3790000.0
+Isuzu V-Cross,https://www.cardekho.com/isuzu/v-cross,Rs.22.07 - 27 Lakh* ,None,None,Manual/Automatic,2700000.0
+Isuzu S-CAB,https://www.cardekho.com/isuzu/s-cab,Rs.12.55 - 13 Lakh* ,None,None,Manual,1300000.0
+Isuzu Hi-Lander,https://www.cardekho.com/isuzu/hi-lander,Rs.19.50 Lakh* ,None,None,Manual,1950000.0
+Jaguar F-Pace,https://www.cardekho.com/jaguar/f-pace,Rs.77.41 Lakh - 1.51 Cr* ,19.3 kmplAutomatic,Petrol,None,15100000.0
+Jaguar F-TYPE,https://www.cardekho.com/jaguar/f-type,Rs.99.98 Lakh - 1.53 Cr* ,None,Petrol,None,15300000.0
+Jaguar XF,https://www.cardekho.com/jaguar/xf,Rs.71.60 - 76 Lakh* ,None,Petrol,None,7600000.0
+Jaguar I-Pace,https://www.cardekho.com/jaguar/i-pace,Rs.1.20 - 1.24 Cr* ,None,None,None,12400000.0
+Jaguar F-TYPE R-Dynamic Black,https://www.cardekho.com/overview/Jaguar_F-TYPE/Jaguar_F-TYPE_R-Dynamic_Black.htm,Rs1.37 Cr* ,None,None,None,13700000.000000002
+Volvo XC90,https://www.cardekho.com/volvo/xc-90,Rs.98.50 Lakh* ,17.2 kmplAutomatic,Petrol,None,9850000.0
+Volvo XC60,https://www.cardekho.com/carmodels/Volvo/Volvo_XC60,Rs.67.50 Lakh* ,11.2 kmplAutomatic,Petrol,None,6750000.0
+Volvo XC40,https://www.cardekho.com/volvo/xc40,Rs.46.40 Lakh* ,12.18 kmplAutomatic,Petrol,None,4640000.0
+Volvo S90,https://www.cardekho.com/volvo/s90,Rs.67.90 Lakh* ,None,Petrol,None,6790000.000000001
+Volvo XC40 Recharge,https://www.cardekho.com/volvo/xc40-recharge,Rs.56.90 Lakh* ,None,None,None,5690000.0
+Volvo C40 Recharge,https://www.cardekho.com/volvo/c40-recharge,Rs60 Lakh* ,None,None,None,6000000.0
+Volvo EX90,https://www.cardekho.com/volvo/ex90,Rs1.50 Cr* ,None,None,None,15000000.0
+Lexus ES,https://www.cardekho.com/lexus/es,Rs.61.60 - 67.90 Lakh* ,None,Petrol,None,6790000.000000001
+Lexus RX,https://www.cardekho.com/lexus/rx,Rs.95.80 Lakh - 1.18 Cr* ,None,Petrol,None,11800000.0
+Lexus LC 500h,https://www.cardekho.com/lexus/lc-500h,Rs.2.29 Cr* ,12.3 kmplAutomatic,Petrol,None,22900000.0
+Lexus LS,https://www.cardekho.com/lexus/ls,Rs.1.96 - 2.27 Cr* ,15.4 kmplAutomatic,Petrol,None,22700000.0
+Lexus LX,https://www.cardekho.com/lexus/lx,Rs.2.84 Cr* ,None,None,None,28400000.0
+Lexus NX,https://www.cardekho.com/lexus/nx,Rs.67.35 - 74.24 Lakh* ,None,Petrol,None,7423999.999999999
+Lexus UX,https://www.cardekho.com/lexus/ux,Rs40 Lakh* ,None,None,None,4000000.0
+Lexus LM 2023,https://www.cardekho.com/lexus/lm-2023,Rs1.20 Cr* ,None,None,None,12000000.0
+Lexus LBX,https://www.cardekho.com/lexus/lbx,Rs45 Lakh* ,None,None,None,4500000.0
+Land Rover Range Rover,https://www.cardekho.com/land-rover/range-rover,Rs.2.39 - 4.17 Cr* ,14.01 kmplAutomatic,Petrol,None,41700000.0
+Land Rover Defender,https://www.cardekho.com/land-rover/defender,Rs.93.55 Lakh - 2.30 Cr* ,14.01 kmplAutomatic,Petrol,None,23000000.0
+Land Rover Range Rover Evoque,https://www.cardekho.com/land-rover/range-rover-evoque,Rs.72.09 Lakh* ,None,Petrol,None,7209000.0
+Land Rover Range Rover Velar,https://www.cardekho.com/land-rover/range-rover-velar,Rs.89.41 Lakh* ,15.8 kmplAutomatic,Petrol,None,8941000.0
+Land Rover Discovery,https://www.cardekho.com/land-rover/discovery,Rs.95.65 Lakh - 1.32 Cr* ,None,Petrol,None,13200000.0
+Land Rover Range Rover Sport,https://www.cardekho.com/land-rover/range-rover-sport,Rs.1.64 - 1.84 Cr* ,None,Petrol,None,18400000.0
+Land Rover Discovery Sport,https://www.cardekho.com/carmodels/Land_Rover/Land_Rover_Discovery_Sport,Rs.71.39 Lakh* ,6.9 kmplAutomatic,Petrol,None,7139000.0
+Land Rover Defender 5-door Hybrid X,https://www.cardekho.com/overview/Land_Rover_Defender/Land_Rover_Defender_5-door_Hybrid_X.htm,Rs1.15 Cr* ,None,None,None,11500000.0
+Land Rover Defender 5-door Hybrid X-Dynamic HSE,https://www.cardekho.com/overview/Land_Rover_Defender/Land_Rover_Defender_5-door_Hybrid_X-Dynamic_HSE.htm,Rs1.10 Cr* ,None,None,None,11000000.0
+Land Rover Range Rover Evoque 2023,https://www.cardekho.com/land-rover/range-rover-evoque-2023,Rs77 Lakh* ,None,None,None,7700000.0
+Porsche Cayenne,https://www.cardekho.com/porsche/cayenne,Rs.1.36 Cr* ,None,Petrol,None,13600000.000000002
+Porsche 911,https://www.cardekho.com/carmodels/Porsche/Porsche_911,Rs.1.73 - 3.25 Cr* ,10.64 kmplManual,Petrol,Manual/Automatic,32500000.0
+Porsche Macan,https://www.cardekho.com/carmodels/Porsche/Porsche_Macan,Rs.85.17 Lakh - 1.47 Cr* ,11.24 kmplAutomatic,Petrol,None,14700000.0
+Porsche Taycan,https://www.cardekho.com/porsche/taycan,Rs.1.53 - 2.34 Cr* ,None,None,None,23400000.0
+Porsche Panamera,https://www.cardekho.com/porsche/panamera,Rs.1.58 - 2.71 Cr* ,10.75 kmplAutomatic,Petrol,None,27100000.0
+Porsche 718,https://www.cardekho.com/porsche/718,Rs.1.37 - 2.54 Cr* ,9.17 kmplManual,Petrol,Manual/Automatic,25400000.0
+Porsche Cayenne Coupe,https://www.cardekho.com/porsche/cayenne-coupe,Rs.1.42 Cr* ,None,Petrol,None,14200000.0
+Ferrari 296 GTB,https://www.cardekho.com/ferrari/296-gtb,Rs.5.40 Cr* ,None,Petrol,None,54000000.0
+Ferrari Roma,https://www.cardekho.com/ferrari/roma,Rs.3.76 Cr* ,8.93 kmplAutomatic,Petrol,None,37600000.0
+Ferrari 812,https://www.cardekho.com/ferrari/812,Rs.5.75 Cr* ,None,Petrol,None,57500000.0
+Ferrari F8 Tributo,https://www.cardekho.com/ferrari/f8-tributo,Rs.4.02 Cr* ,None,Petrol,None,40199999.99999999
+Ferrari SF90 Stradale,https://www.cardekho.com/ferrari/sf90-stradale,Rs.7.50 Cr* ,None,Petrol,None,75000000.0
+Ferrari Purosangue,https://www.cardekho.com/ferrari/purosangue,Rs5 Cr* ,None,None,None,50000000.0
+Rolls-Royce Phantom,https://www.cardekho.com/carmodels/Rolls-Royce/Rolls-Royce_Phantom,Rs.8.99 - 10.48 Cr* ,9.8 kmplAutomatic,Petrol,None,104800000.0
+Rolls-Royce Ghost,https://www.cardekho.com/carmodels/Rolls-Royce/Rolls-Royce_Ghost,Rs.6.95 - 7.95 Cr* ,6.33 kmplAutomatic,Petrol,None,79500000.0
+Rolls-Royce Cullinan,https://www.cardekho.com/rolls-royce/cullinan,Rs.6.95 Cr* ,9.5 kmplAutomatic,Petrol,None,69500000.0
+Bentley Continental,https://www.cardekho.com/carmodels/Bentley/Bentley_Continental,Rs.3.29 - 3.91 Cr* ,9.8 to 12.9 kmp,Petrol,None,39100000.0
+Bentley Bentayga,https://www.cardekho.com/bentley/bentayga,Rs.4.10 Cr* ,None,Petrol,None,41000000.0
+Bentley Flying Spur,https://www.cardekho.com/carmodels/Bentley/Bentley_Flying_Spur,Rs.3.22 - 3.41 Cr* ,10.2 to 12.5 kmp,Petrol,None,34100000.0
+Bentley Bentayga EWB,https://www.cardekho.com/bentley/bentayga-ewb,Rs.6 Cr* ,None,Petrol,None,60000000.0
+Bugatti Divo,https://www.cardekho.com/bugatti/divo,Rs.41 Cr* ,None,Petrol,None,410000000.0
+Bugatti Veyron,https://www.cardekho.com/carmodels/Bugatti/Bugatti_Veyron,Rs.12 Cr* ,6.8 kmpl7993,Petrol,None,120000000.0
+Force Gurkha,https://www.cardekho.com/carmodels/Force/Force_Gurkha,Rs.14.75 Lakh* ,None,None,Manual,1475000.0
+Force Gurkha 5 Door,https://www.cardekho.com/force/gurkha-5-door,Rs16 Lakh* ,None,None,None,1600000.0
+Mitsubishi Cedia,https://www.cardekho.com/carmodels/Mitsubishi/Mitsubishi_Cedia,Rs.8.24 Lakh* ,13.17 kmpl1999,Petrol,None,824000.0
+Mitsubishi Challenger,https://www.cardekho.com/carmodels/Mitsubishi/Mitsubishi_Challenger,Rs.20.25 Lakh* ,11.3 kmpl2835,None,None,2025000.0
+Mitsubishi FTO,https://www.cardekho.com/carmodels/Mitsubishi/Mitsubishi_FTO,Rs.8.24 Lakh* ,13.17 kmpl1998,Petrol,None,824000.0
+Mitsubishi Lancer,https://www.cardekho.com/carmodels/Mitsubishi/Mitsubishi_Lancer,Rs.7.33 Lakh* ,13.7 kmpl1468,Petrol,None,733000.0
+Mitsubishi Lancer Evolution X,https://www.cardekho.com/carmodels/Mitsubishi/Mitsubishi_Lancer_Evolution_X,Rs.49.95 Lakh* ,15.0 kmpl1998,Petrol,None,4995000.0
+Mitsubishi Montero 2007-2012,https://www.cardekho.com/mitsubishi/montero-2007-2012,Rs.40.50 Lakh* ,12.25 kmpl3200,None,None,4050000.0
+Mitsubishi Montero 2009-2014,https://www.cardekho.com/mitsubishi/montero-2009-2014,Rs.41.34 Lakh* ,11.56 kmpl3200,None,None,4134000.0000000005
+Mitsubishi Montero,https://www.cardekho.com/carmodels/Mitsubishi/Mitsubishi_Montero,Rs.67.88 Lakh* ,11.56 kmpl3200,None,None,6788000.0
+Mitsubishi Outlander,https://www.cardekho.com/carmodels/Mitsubishi/Mitsubishi_Outlander,Rs.26.93 Lakh* ,10.2 kmpl2360,Petrol,None,2693000.0
+Mitsubishi Outlander 2007-2013,https://www.cardekho.com/mitsubishi/outlander-2007-2013,Rs.20.25 Lakh* ,11.3 kmpl2360,Petrol,None,2025000.0
+Mitsubishi Pajero 2002-2012,https://www.cardekho.com/mitsubishi/pajero-2002-2012,Rs.18.81 Lakh* ,9.5 kmpl2835,None,None,1880999.9999999998
+Mitsubishi Pajero Sport,https://www.cardekho.com/carmodels/Mitsubishi/Mitsubishi_Pajero,Rs.23.91 Lakh* ,13.5 kmpl2477,None,None,2391000.0
+Bajaj Qute (RE60),https://www.cardekho.com/bajaj/re60,Rs.3.61 Lakh* ,None,None,Manual,361000.0
+Citroen C3,https://www.cardekho.com/citroen/c3,Rs.6.16 - 8.92 Lakh* ,19.3 kmplManual,Petrol,Manual,892000.0
+Citroen eC3,https://www.cardekho.com/citroen/ec3,Rs.11.50 - 12.43 Lakh* ,None,None,None,1243000.0
+Citroen C5 Aircross,https://www.cardekho.com/citroen/c5-aircross,Rs.37.17 Lakh* ,17.5 kmplAutomatic,None,None,3717000.0
+Citroen C3 Aircross,https://www.cardekho.com/citroen/c3-aircross,Rs9 Lakh* ,None,None,None,900000.0
+Lamborghini Urus,https://www.cardekho.com/lamborghini/urus,Rs.4.18 - 4.22 Cr* ,None,Petrol,None,42200000.0
+Lamborghini Huracan EVO,https://www.cardekho.com/lamborghini/huracan-evo,Rs.3.21 - 4.99 Cr* ,None,Petrol,None,49900000.0
+Lamborghini Revuelto,https://www.cardekho.com/lamborghini/revuelto,Rs10 Cr* ,None,None,None,100000000.0
+Mini Cooper Countryman,https://www.cardekho.com/mini/cooper-countryman,Rs.47.40 Lakh* ,14.34 kmplAutomatic,Petrol,None,4740000.0
+Mini Cooper 3 DOOR,https://www.cardekho.com/carmodels/Mini/Mini_3_DOOR,Rs.41.20 Lakh* ,17.33 kmplAutomatic,Petrol,None,4120000.0000000005
+Mini Cooper SE,https://www.cardekho.com/mini/cooper-se,Rs.52.50 Lakh* ,None,None,None,5250000.0
+Mini Cooper SE 2024,https://www.cardekho.com/mini/cooper-se-2024,Rs55 Lakh* ,None,None,None,5500000.0
+Aston Martin DBX,https://www.cardekho.com/aston-martin/dbx,Rs.3.82 - 4.63 Cr* ,None,Petrol,None,46300000.0
+Aston Martin DB11,https://www.cardekho.com/aston-martin/db11,Rs.3.80 - 4.20 Cr* ,None,Petrol,Manual/Automatic,42000000.0
+Aston Martin Vantage,https://www.cardekho.com/carmodels/Aston_Martin/Aston_Martin_Vantage,Rs.3 - 3.50 Cr* ,None,Petrol,Manual,35000000.0
+Aston Martin DB12,https://www.cardekho.com/aston-martin/db12,Rs4 Cr* ,None,None,None,40000000.0
+Maserati Levante,https://www.cardekho.com/maserati/levante,Rs.1.49 - 1.64 Cr* ,12.0 kmplAutomatic,Petrol,None,16399999.999999998
+Maserati Ghibli,https://www.cardekho.com/maserati/ghibli,Rs.1.15 - 1.93 Cr* ,None,Petrol,None,19300000.0
+Maserati GranTurismo,https://www.cardekho.com/carmodels/Maserati/Maserati_Gran_Turismo,Rs.2.25 - 2.51 Cr* ,10.0 kmplAutomatic,Petrol,None,25099999.999999996
+Maserati Quattroporte,https://www.cardekho.com/carmodels/Maserati/Maserati_Quattroporte,Rs.1.71 - 2.12 Cr* ,11.76 kmplAutomatic,Petrol,None,21200000.0
+Maserati GranCabrio,https://www.cardekho.com/carmodels/Maserati/Maserati_Gran_Cabrio,Rs.2.46 - 2.69 Cr* ,10.2 kmplAutomatic,Petrol,None,26900000.0
+Tesla Cybertruck,https://www.cardekho.com/tesla/cybertruck,Rs50.70 Lakh* ,None,None,None,5070000.0
+Tesla Model 2,https://www.cardekho.com/tesla/model-2,Rs45 Lakh* ,None,None,None,4500000.0
+BYD Atto 3,https://www.cardekho.com/byd/atto-3,Rs.33.99 - 34.49 Lakh* ,None,None,None,3449000.0
+BYD E6,https://www.cardekho.com/byd/e6,Rs.29.15 Lakh* ,None,None,None,2915000.0
+BYD Seal,https://www.cardekho.com/byd/seal,Rs60 Lakh* ,None,None,None,6000000.0
+Fisker Ocean,https://www.cardekho.com/fisker/ocean,Rs80 Lakh* ,None,None,None,8000000.0
+PMV EaS E,https://www.cardekho.com/pmv/eas-e,Rs.4.79 Lakh* ,None,None,None,479000.0
+Pravaig DEFY,https://www.cardekho.com/pravaig/defy,Rs.39.50 Lakh* ,None,None,None,3950000.0
+Strom Motors R3,https://www.cardekho.com/strom-motors/r3,Rs.4.50 Lakh* ,None,None,None,450000.0
+Mean Metal Azani,https://www.cardekho.com/mean-metal/azani,Rs88.98 Lakh* ,None,None,None,8898000.0
+OLA Electric Car,https://www.cardekho.com/ola-electric/electric-car,Rs40 Lakh* ,None,None,None,4000000.0
+Mahindra XUV e8,https://www.cardekho.com/mahindra-xuv/e8,Rs35 Lakh* ,None,None,None,3500000.0
+Mahindra XUV e9,https://www.cardekho.com/mahindra-xuv/e9,Rs38 Lakh* ,None,None,None,3800000.0
+Mahindra BE 09,https://www.cardekho.com/mahindra-be/09,Rs45 Lakh* ,None,None,None,4500000.0
+Mahindra BE 05,https://www.cardekho.com/mahindra-be/05,Rs24 Lakh* ,None,None,None,2400000.0
+Vayve Mobility EVA,https://www.cardekho.com/vayve-mobility/eva,Rs7 Lakh* ,None,None,None,700000.0
+Fiat 1100,https://www.cardekho.com/carmodels/Fiat/Fiat_1100,Rs.10 Lakh* ,14.6 kmpl1100,Petrol,None,1000000.0
+Fiat 500,https://www.cardekho.com/carmodels/Fiat/Fiat_500,Rs.14.83 Lakh* ,None,None,None,1483000.0
+Fiat Abarth,https://www.cardekho.com/carmodels/Fiat/Fiat_Abarth_595,Rs.29.85 Lakh* ,19.0 kmpl1368,Petrol,None,2985000.0
+Fiat Abarth Avventura,https://www.cardekho.com/carmodels/Fiat/Fiat_Abarth_Avventura,Rs.9.89 Lakh* ,17.1 kmpl1368,Petrol,None,989000.0
+Fiat Adventure,https://www.cardekho.com/carmodels/Fiat/Fiat_Adventure,Rs.3.59 Lakh* ,15.5 kmpl1596,Petrol,None,359000.0
+Fiat Avventura,https://www.cardekho.com/carmodels/Fiat/Fiat_Avventura,Rs.6.81 Lakh* ,14.4 kmpl1368,Petrol,None,681000.0
+Fiat Avventura Urban Cross,https://www.cardekho.com/fiat/avventura-urban-cross,Rs.6.78 Lakh* ,20.5 kmpl1248,None,None,678000.0
+Fiat Ducato,https://www.cardekho.com/carmodels/Fiat/Fiat_Ducato,Rs.16 Lakh* ,13.0 kmpl2999,None,None,1600000.0
+Fiat Grande Punto 2009-2014,https://www.cardekho.com/carmodels/Fiat/Fiat_Grande_Punto_2009-2014,Rs.4.90 Lakh* ,15.6 kmpl1368,Petrol,None,490000.00000000006
+Fiat Grande Punto,https://www.cardekho.com/carmodels/Fiat/Fiat_Grande_Punto,Rs.5.05 Lakh* ,15.8 kmpl1172,Petrol,None,505000.0
+Fiat Linea,https://www.cardekho.com/carmodels/Fiat/Fiat_Linea,Rs.7.23 Lakh* ,15.7 kmpl1368,Petrol,None,723000.0
+Fiat Linea 2008-2012,https://www.cardekho.com/carmodels/Fiat/Fiat_Linea_2008-2012,Rs.6.62 Lakh* ,16.0 kmpl1368,Petrol,None,662000.0
+Fiat Linea 2012-2014,https://www.cardekho.com/carmodels/Fiat/Fiat_Linea_2012-2014,Rs.7.26 Lakh* ,14.6 kmpl1368,Petrol,None,726000.0
+Fiat Linea Classic,https://www.cardekho.com/carmodels/Fiat/Fiat_Linea_Classic,Rs.6.46 Lakh* ,14.9 kmpl1368,Petrol,None,646000.0
+Fiat Millicento,https://www.cardekho.com/carmodels/Fiat/Fiat_Millicento,Rs.10 Lakh* ,14.6 kmpl1089,Petrol,None,1000000.0
+Fiat Palio,https://www.cardekho.com/carmodels/Fiat/Fiat_Palio,Rs.3.59 Lakh* ,15.5 kmpl1242,Petrol,None,359000.0
+Fiat Palio D,https://www.cardekho.com/carmodels/Fiat/Fiat_Palio_D,Rs.3.59 Lakh* ,15.5 kmpl1910,None,None,359000.0
+Fiat Palio NV,https://www.cardekho.com/carmodels/Fiat/Fiat_Palio_NV,Rs.3.59 Lakh* ,15.5 kmpl1242,Petrol,None,359000.0
+Fiat Palio Stile,https://www.cardekho.com/carmodels/Fiat/Fiat_Palio_Stile,Rs.3.41 Lakh* ,15.5 kmpl1108,Petrol,None,341000.0
+Fiat Petra,https://www.cardekho.com/carmodels/Fiat/Fiat_Petra,Rs.5.09 Lakh* ,15.5 kmpl1242,Petrol,None,509000.0
+Fiat Petra D,https://www.cardekho.com/carmodels/Fiat/Fiat_Petra_D,Rs.5.09 Lakh* ,15.5 kmpl1910,Petrol,None,509000.0
+Fiat Premier Padmini,https://www.cardekho.com/carmodels/Fiat/Fiat_Premier_Padmini,Rs.1.20 Lakh* ,None,Petrol,None,120000.0
+Fiat Punto,https://www.cardekho.com/fiat/punto,Rs.5.16 Lakh* ,15.7 kmpl,Petrol,None,516000.0
+Fiat Abarth Punto,https://www.cardekho.com/carmodels/Fiat/Fiat_Punto_Abarth,Rs.9.67 Lakh* ,16.3 kmpl1368,Petrol,None,967000.0
+Fiat Punto EVO,https://www.cardekho.com/carmodels/Fiat/Fiat_Punto_EVO,Rs.4.92 Lakh* ,15.8 kmpl1172,Petrol,None,492000.0
+Fiat Punto Pure,https://www.cardekho.com/carmodels/Fiat/Fiat_Punto_Pure,Rs.4.54 Lakh* ,15.7 kmpl1172,Petrol,None,454000.0
+Fiat Siena,https://www.cardekho.com/carmodels/Fiat/Fiat_Siena,Rs.5.25 Lakh* ,None,None,None,525000.0
+Fiat Uno,https://www.cardekho.com/carmodels/Fiat/Fiat_Uno,Rs.4.23 Lakh* ,16.0 kmpl1198,Petrol,None,423000.00000000006
+DC Avanti,https://www.cardekho.com/carmodels/DC/DC_Avanti,Rs.48 Lakh* ,10.0 kmpl2000,Petrol,None,4800000.0
+ICML Extreme,https://www.cardekho.com/carmodels/ICML/ICML_Extreme,Rs.6.49 Lakh* ,17.0 kmpl1994,None,None,649000.0
+ICML Rhino Rx,https://www.cardekho.com/carmodels/ICML/ICML_Rhino_Rx,Rs.5.82 Lakh* ,11.12 kmpl1994,None,None,582000.0
+Premier 118 NE,https://www.cardekho.com/carmodels/Premier/Premier_118_NE,Rs.5.99 Lakh* ,None,Petrol,None,599000.0
+Premier 138 D,https://www.cardekho.com/carmodels/Premier/Premier_138_D,Rs.6.50 Lakh* ,None,None,None,650000.0
+Premier Padmini,https://www.cardekho.com/carmodels/Premier/Premier_Padmini,Rs.1.95 Lakh* ,15.0 kmpl1089,None,None,195000.0
+Premier Rio 2009 2011,https://www.cardekho.com/carmodels/Premier/Premier_Rio_2009-2011,Rs.4.70 Lakh* ,16.0 kmpl1173,Petrol,None,470000.0
+Premier Rio,https://www.cardekho.com/carmodels/Premier/Premier_Rio,Rs.5 Lakh* ,12.5 kmpl1173,Petrol,None,500000.0
+Chevrolet Aveo,https://www.cardekho.com/carmodels/Chevrolet/Chevrolet_Aveo,Rs.5.99 Lakh* ,14.49 kmpl1399,Petrol,None,599000.0
+Chevrolet Aveo U-VA,https://www.cardekho.com/carmodels/Chevrolet/Chevrolet_Aveo_U-VA,Rs.4.08 Lakh* ,14.7 kmpl1150,Petrol,None,408000.0
+Chevrolet Beat 2009-2013,https://www.cardekho.com/carmodels/Chevrolet/Chevrolet_Beat_2009-2013,Rs.3.94 Lakh* ,18.6 kmpl1199,Petrol,None,394000.0
+Chevrolet Beat 2014-2016,https://www.cardekho.com/carmodels/Chevrolet/Chevrolet_Beat_2014-2016,Rs.4.30 Lakh* ,18.6 kmpl1199,Petrol,None,430000.0
+Chevrolet Beat,https://www.cardekho.com/carmodels/Chevrolet/Chevrolet_Beat,Rs.4.32 Lakh* ,17.8 kmpl1199,Petrol,None,432000.0
+Chevrolet Captiva,https://www.cardekho.com/carmodels/Chevrolet/Chevrolet_Captiva,Rs.25.14 Lakh* ,14.6 kmpl2231,None,None,2514000.0
+Chevrolet Captiva 2008-2012,https://www.cardekho.com/carmodels/Chevrolet/Chevrolet_Captiva_2008-2011,Rs.17.97 Lakh* ,11.5 kmpl1991,None,None,1797000.0
+Chevrolet Captiva 2012-2014,https://www.cardekho.com/carmodels/Chevrolet/Chevrolet_Captiva_2012-2014,Rs.18.75 Lakh* ,14.0 kmpl1991,None,None,1875000.0
+Chevrolet Corvette,https://www.cardekho.com/carmodels/Chevrolet/Chevrolet_Corvette,Rs.50 Lakh* ,10.5 kmpl6161,Petrol,None,5000000.0
+Chevrolet Cruze 2010-2011,https://www.cardekho.com/carmodels/Chevrolet/Chevrolet_Cruze_2010-2011,Rs.12.54 Lakh* ,18.3 kmpl1991,None,None,1254000.0
+Chevrolet Cruze 2012-2014,https://www.cardekho.com/carmodels/Chevrolet/Chevrolet_Cruze_2012-2014,Rs.13.92 Lakh* ,17.3 kmpl1998,None,None,1392000.0
+Chevrolet Cruze 2014-2016,https://www.cardekho.com/carmodels/Chevrolet/Chevrolet_Cruze_2014-2016,Rs.14.68 Lakh* ,17.9 kmpl1998,None,None,1468000.0
+Chevrolet Cruze,https://www.cardekho.com/carmodels/Chevrolet/Chevrolet_Cruze,Rs.13.95 Lakh* ,17.9 kmpl1998,None,None,1395000.0
+Chevrolet Enjoy,https://www.cardekho.com/carmodels/Chevrolet/Chevrolet_Enjoy,Rs.6.52 Lakh* ,13.7 kmpl1399,Petrol,None,652000.0
+Chevrolet Enjoy 2013-2015,https://www.cardekho.com/carmodels/Chevrolet/Chevrolet_Enjoy_2013-2015,Rs.6.11 Lakh* ,13.7 kmpl1399,Petrol,None,611000.0
+Chevrolet Forester,https://www.cardekho.com/carmodels/Chevrolet/Chevrolet_Forester,Rs.10 Lakh* ,None,Petrol,None,1000000.0
+Chevrolet Optra,https://www.cardekho.com/carmodels/Chevrolet/Chevrolet_Optra,Rs.8.17 Lakh* ,17.4 kmpl1599,Petrol,None,817000.0
+Chevrolet Optra Magnum,https://www.cardekho.com/carmodels/Chevrolet/Chevrolet_Optra_Magnum,Rs.7.41 Lakh* ,12.9 kmpl1598,Petrol,None,741000.0
+Chevrolet Optra SRV,https://www.cardekho.com/carmodels/Chevrolet/Chevrolet_OptraSRV,Rs.6.98 Lakh* ,12.3 kmpl1598,Petrol,None,698000.0
+Chevrolet Sail,https://www.cardekho.com/carmodels/Chevrolet/Chevrolet_Sail,Rs.5.77 Lakh* ,18.2 kmpl1199,Petrol,None,577000.0
+Chevrolet Sail Hatchback,https://www.cardekho.com/carmodels/Chevrolet/Chevrolet_Sail_Hatchback,Rs.4.79 Lakh* ,18.2 kmpl1199,Petrol,None,479000.0
+Chevrolet Sail Hatchback 2012-2013,https://www.cardekho.com/carmodels/Chevrolet/Chevrolet_Sail_Hatchback_2012-2013,Rs.4.29 Lakh* ,18.2 kmpl1199,Petrol,None,429000.0
+Chevrolet Silverado,https://www.cardekho.com/carmodels/Chevrolet/Chevrolet_Silverado,Rs.8.17 Lakh* ,17.4 kmpl1498,Petrol,None,817000.0
+Chevrolet Spark,https://www.cardekho.com/carmodels/Chevrolet/Chevrolet_Spark,Rs.3.34 Lakh* ,18.0 kmpl995,Petrol,None,334000.0
+Chevrolet Spark 2007-2012,https://www.cardekho.com/carmodels/Chevrolet/Chevrolet_Spark_2007-2012,Rs.3.06 Lakh* ,16.0 kmpl995,Petrol,None,306000.0
+Chevrolet Tavera 2003-2007,https://www.cardekho.com/carmodels/Chevrolet/Chevrolet_Tavera_2003-2007,Rs.7.23 Lakh* ,14.8 kmpl2499,None,None,723000.0
+Chevrolet Tavera 2012-2017,https://www.cardekho.com/chevrolet/tavera-2012-2017,Rs.7.95 Lakh* ,13.58 kmpl2499,None,None,795000.0
+Chevrolet Tavera,https://www.cardekho.com/carmodels/Chevrolet/Chevrolet_Tavera,Rs.8.54 Lakh* ,13.58 kmpl2499,None,None,853999.9999999999
+Chevrolet Tavera Neo,https://www.cardekho.com/carmodels/Chevrolet/Chevrolet_Tavera_Neo,Rs.9.16 Lakh* ,14.8 kmpl2499,None,None,916000.0
+Chevrolet Trailblazer,https://www.cardekho.com/carmodels/Chevrolet/Chevrolet_Trailblazer,Rs.26.99 Lakh* ,11.45 kmpl2776,None,None,2699000.0
