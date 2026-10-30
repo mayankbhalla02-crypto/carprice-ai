@@ -64,7 +64,7 @@ import numpy as np
 app = Flask(__name__)
 
 # Load your model here
- model = joblib.load('car_model_rf.pkl')
+# model = joblib.load('car_model_rf.pkl')
 
 @app.route('/predict', methods=['POST'])
 def predict():
