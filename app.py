@@ -7,6 +7,31 @@ from werkzeug.security import generate_password_hash, check_password_hash
 import ml_model
 import os
 
+from flask import Flask, render_template, request, jsonify
+import joblib
+import numpy as np
+
+app = Flask(__name__)
+
+# Load model safely
+try:
+    model = joblib.load('car_model_rf.pkl')
+except Exception as e:
+    model = None
+    print(f"Model load error: {e}")
+
+@app.route('/')
+def home():
+    return render_template('index.html')
+
+@app.route('/predict', methods=['POST'])
+def predict():
+    # your prediction logic here
+    pass
+
+if __name__ == '__main__':
+    app.run(debug=True)
+
 @app.route('/predict', methods=['POST'])
 def predict():
     try:
