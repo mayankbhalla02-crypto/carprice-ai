@@ -65,7 +65,7 @@ def predict():
         return jsonify({
             'status': 'success',
             'predicted_price': fair_price,
-            'low_estimate': low_est,
+            'Low_estimate': low_est,
             'high_estimate': high_est
         })
     except Exception as e:
