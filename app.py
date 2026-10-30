@@ -5,6 +5,15 @@ from functools import wraps
 from flask import Flask, g, redirect, render_template, request, session, jsonify, url_for
 from werkzeug.security import generate_password_hash, check_password_hash
 import ml_model
+import os
+
+# Use /tmp for SQLite on cloud platforms like Render, or local directory for testing
+if os.environ.get('RENDER'):
+    DB_PATH = '/tmp/carusers.db'
+else:
+    DB_PATH = 'carusers.db'
+
+
 
 DB_PATH = "carusers.db"
 
