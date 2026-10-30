@@ -82,19 +82,7 @@ else:
 
 
 DB_PATH = "carusers.db"
-from flask import Flask, render_template, request, jsonify
-import joblib
-import numpy as np
-
-app = Flask(__name__)
-
-# Load your model here
-# model = joblib.load('car_model_rf.pkl')
-
-@app.route('/predict', methods=['POST'])
-def predict():
-    # your prediction logic here
-    pass
+#from flask import Flask, render_template, request, jsonify
 
 def get_db():
     if "db" not in g:
