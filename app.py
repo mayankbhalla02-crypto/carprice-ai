@@ -57,9 +57,19 @@ else:
 
 
 DB_PATH = "carusers.db"
+from flask import Flask, render_template, request, jsonify
+import joblib
+import numpy as np
 
 app = Flask(__name__)
-app.secret_key = os.environ.get("FLASK_SECRET_KEY", "car-ai-super-secret-key-2026")
+
+# Load your model here
+ model = joblib.load('car_model_rf.pkl')
+
+@app.route('/predict', methods=['POST'])
+def predict():
+    # your prediction logic here
+    pass
 
 def get_db():
     if "db" not in g:
