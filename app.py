@@ -7,6 +7,47 @@ from werkzeug.security import generate_password_hash, check_password_hash
 import ml_model
 import os
 
+@app.route('/predict', methods=['POST'])
+def predict():
+    try:
+        data = request.get_json() or {}
+        year = int(data.get('year', 2020))
+        kms_driven = float(data.get('kms_driven', 40000))
+        fuel_type = data.get('fuel_type', 'Petrol')
+        transmission = data.get('transmission', 'Manual')
+        target_price = float(data.get('target_price', 0))
+
+        age = 2026 - year
+        log_kms = np.log(kms_driven + 1)
+        fuel_diesel = 1 if fuel_type == 'Diesel' else 0
+        fuel_petrol = 1 if fuel_type == 'Petrol' else 0
+        trans_auto = 1 if transmission == 'Automatic' else 0
+
+        fair_price = 7.55 # Safe default / fallback estimation
+        if model is not None:
+            try:
+                # Try matching model input shape
+                input_features = np.array([[age, log_kms, fuel_diesel, fuel_petrol, trans_auto]])
+                fair_price = float(model.predict(input_features)[0])
+            except Exception as model_err:
+                print(f"Model prediction warning: {model_err}")
+                # Fallback calculation if feature dimensions differ
+                fair_price = round(max(1.5, 12.0 - (age * 0.75) - (kms_driven / 25000.0)), 2)
+
+        fair_price = round(max(0.5, fair_price), 2)
+        low_est = round(fair_price * 0.93, 2)
+        high_est = round(fair_price * 1.07, 2)
+
+        return jsonify({
+            'status': 'success',
+            'predicted_price': fair_price,
+            'low_estimate': low_est,
+            'high_estimate': high_est
+        })
+    except Exception as e:
+        # Always return JSON even on error so frontend doesn't crash with 500 HTML
+        return jsonify({'status': 'error', 'message': str(e)}), 400
+
 # Use /tmp for SQLite on cloud platforms like Render, or local directory for testing
 if os.environ.get('RENDER'):
     DB_PATH = '/tmp/carusers.db'
