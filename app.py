@@ -1,73 +1,65 @@
-from flask import Flask, render_template, request, jsonify
+from fastapi import FastAPI, Request, Form
+from fastapi.responses import HTMLResponse, JSONResponse
+from fastapi.templating import Jinja2Templates
 import joblib
 import numpy as np
-import os
+import pandas as pd
 
-app = Flask(__name__)
+app = FastAPI(title="FreshRoute AI - Car Price Prediction")
 
-# Load the trained Random Forest model safely
-model = None
-try:
-    if os.path.exists('car_model_rf.pkl'):
-        model = joblib.load('car_model_rf.pkl')
-except Exception as e:
-    print(f"Model load error: {e}")
+# Set up templates folder for HTML rendering
+templates = Jinja2Templates(directory="templates")
 
-@app.route('/')
-def home():
-    return render_template('index.html')
+# Load your pre-trained Random Forest model
+model = joblib.load("car_model_rf.pkl")
 
-@app.route('/login', methods=['GET', 'POST'])
-def login():
-    if request.method == 'POST':
-        return render_template('dashboard.html')
-    return render_template('login.html')
+@app.get("/", response_class=HTMLResponse)
+async def read_root(request: Request):
+    """Serves the main login or home page."""
+    return templates.TemplateResponse("login.html", {"request": request})
 
-@app.route('/signup', methods=['GET', 'POST'])
-def signup():
-    if request.method == 'POST':
-        return render_template('dashboard.html')
-    return render_template('signup.html')
+@app.get("/dashboard", response_class=HTMLResponse)
+async def dashboard(request: Request):
+    """Serves your dashboard.html UI."""
+    return templates.TemplateResponse("dashboard.html", {"request": request})
 
-@app.route('/dashboard')
-def dashboard():
-    return render_template('dashboard.html')
-
-@app.route('/predict', methods=['POST'])
-def predict():
+@app.post("/predict")
+async def predict(
+    year: int = Form(...),
+    kms_driven: float = Form(...),
+    fuel: str = Form(...),
+    transmission: str = Form(...)
+):
+    """Receives vehicle details, computes feature engineering, and returns Random Forest prediction."""
     try:
-        data = request.get_json() or {}
-        year = int(data.get('year', 2020))
-        kms_driven = float(data.get('kms_driven', 40000))
-        fuel_type = data.get('fuel_type', 'Petrol')
-        transmission = data.get('transmission', 'Manual')
+        # Feature Engineering matching your training pipeline
+        current_year = 2026
+        car_age = current_year - year
+        log_kms = np.log(kms_driven) if kms_driven > 0 else 0
 
-        # Derived features matching your training pipeline
-        age = 2026 - year
-        log_kms = np.log(kms_driven + 1)
-        fuel_diesel = 1 if fuel_type == 'Diesel' else 0
-        fuel_petrol = 1 if fuel_type == 'Petrol' else 0
-        trans_auto = 1 if transmission == 'Automatic' else 0
+        # Construct input DataFrame / Array matching model features
+        # (Adjust columns to match the exact format your Random Forest pipeline expects)
+        input_data = pd.DataFrame([[car_age, log_kms, fuel, transmission]], 
+                                  columns=['age', 'log_kms', 'fuel', 'transmission'])
+        
+        # Perform prediction
+        predicted_price = model.predict(input_data)[0]
+        
+        # Price range brackets
+        fair_price = round(predicted_price, 2)
+        low_price = round(fair_price * 0.92, 2)
+        high_price = round(fair_price * 1.08, 2)
 
-        fair_price = 10.0
-        if model is not None:
-            try:
-                input_features = np.array([[age, log_kms, fuel_diesel, fuel_petrol, trans_auto]])
-                fair_price = float(model.predict(input_features)[0])
-            except Exception as model_err:
-                print(f"Model prediction warning: {model_err}")
-
-        fair_price = round(max(0.5, fair_price), 2)
-        low_est = round(fair_price * 0.93, 2)
-        high_est = round(fair_price * 1.07, 2)
-
-        return jsonify({
-            'status': 'success',
-            'predicted_price': fair_price,
-            'low_estimate': low_est,
-            'high_estimate': high_est
+        return JSONResponse(status_code=200, content={
+            "status": "success",
+            "fairPriceDisplay": f"₹ {fair_price:,.2f}",
+            "lowEstDisplay": f"₹ {low_price:,.2f}",
+            "highEstDisplay": f"₹ {high_price:,.2f}"
         })
+    
     except Exception as e:
-        return jsonify({'status': 'error', 'message': str(e)}), 400
-if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=5000, debug=True)
+        return JSONResponse(status_code=500, content={"status": "error", "message": str-e})
+
+if __name__ == "__main__":
+    import uvicorn
+    uvicorn.run("app:app", host="0.0.0.0", port=8000, reload=True)
