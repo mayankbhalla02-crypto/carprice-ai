@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Dashboard — Car Valuation AI</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-[#0b0f17] text-white min-h-screen">
+    <nav class="bg-[#121824] border-b border-white/10 px-8 py-4 flex justify-between items-center">
+        <h1 class="text-xl font-bold text-orange-500">🚗 Car Valuation AI Platform</h1>
+        <div class="flex items-center gap-4">
+            <span class="text-gray-400 text-sm">Welcome, <strong class="text-white">{{ org_name }}</strong></span>
+            <a href="/logout" class="bg-red-500/20 text-red-400 px-4 py-2 rounded-lg text-sm hover:bg-red-500/30 transition">Log Out</a>
+        </div>
+    </nav>
+
+    <main class="max-w-4xl mx-auto px-6 py-12">
+        <div class="bg-[#121824] p-8 rounded-2xl border border-white/10 shadow-2xl">
+            <h2 class="text-2xl font-bold mb-2">AI Price Prediction Calculator</h2>
+            <p class="text-gray-400 text-sm mb-6">Select car specifications to estimate market valuation using Random Forest AI.</p>
+
+            <form id="predict-form" class="space-y-6">
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <div>
+                        <label class="block text-xs uppercase tracking-wider text-gray-400 mb-2">Car Model</label>
+                        <select id="car-model" class="w-full bg-[#1b2230] border border-white/10 rounded-lg p-3 text-white focus:outline-none focus:border-orange-500">
+                            <option value="Maruti Suzuki Jimny">Maruti Suzuki Jimny</option>
+                            <option value="Maruti Suzuki FRONX">Maruti Suzuki FRONX</option>
+                            <option value="Maruti Suzuki Brezza">Maruti Suzuki Brezza</option>
+                            <option value="Mahindra Thar">Mahindra Thar</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-xs uppercase tracking-wider text-gray-400 mb-2">Fuel Type</label>
+                        <select id="car-fuel" class="w-full bg-[#1b2230] border border-white/10 rounded-lg p-3 text-white focus:outline-none focus:border-orange-500">
+                            <option value="Petrol">Petrol</option>
+                            <option value="Diesel">Diesel</option>
+                            <option value="CNG">CNG</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-xs uppercase tracking-wider text-gray-400 mb-2">Transmission Type</label>
+                        <select id="car-type" class="w-full bg-[#1b2230] border border-white/10 rounded-lg p-3 text-white focus:outline-none focus:border-orange-500">
+                            <option value="Manual">Manual</option>
+                            <option value="Automatic">Automatic</option>
+                            <option value="Manual/Automatic">Manual/Automatic</option>
+                        </select>
+                    </div>
+                </div>
+
+                <button type="submit" class="w-full bg-orange-500 hover:bg-orange-600 text-black font-bold py-4 rounded-lg transition text-lg shadow-lg">Run AI Price Estimation</button>
+            </form>
+
+            <div id="result-box" class="mt-8 hidden bg-[#1b2230] border border-orange-500/50 p-6 rounded-xl text-center">
+                <h3 class="text-sm uppercase tracking-widest text-gray-400 mb-1">Estimated Market Value</h3>
+                <div id="price-output" class="text-3xl font-extrabold text-orange-400">--</div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        document.getElementById('predict-form').onsubmit = async (e) => {
+            e.preventDefault();
+            const payload = {
+                model: document.getElementById('car-model').value,
+                fuel: document.getElementById('car-fuel').value,
+                Type: document.getElementById('car-type').value
+            };
+
+            const res = await fetch('/api/predict', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(payload)
+            });
+            const data = await res.json();
+            
+            document.getElementById('result-box').classList.remove('hidden');
+            document.getElementById('price-output').innerText = data.estimated_range;
+        };
+    </script>
+</body>
+</html>
