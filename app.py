@@ -4,9 +4,10 @@ from fastapi.responses import HTMLResponse, JSONResponse, RedirectResponse
 from fastapi.templating import Jinja2Templates
 from fastapi.staticfiles import StaticFiles
 import joblib
+import numpy as np
 import pandas as pd
 
-app = FastAPI(title="FreshRoute AI - Car Price Prediction")
+app = FastAPI(title="CarPrice AI - Valuation Platform")
 
 if os.path.isdir("static"):
     app.mount("/static", StaticFiles(directory="static"), name="static")
@@ -16,21 +17,20 @@ templates = Jinja2Templates(directory="templates")
 model = joblib.load("car_model_rf.pkl")
 EXPECTED_FEATURES = list(getattr(model, "feature_names_in_", []))
 
-# Price band display mapping for classes 0, 1, 2 (from qcut q=3)
-BAND_DISPLAY = {
+TIER_MAP = {
     0: {
-        "fair": "Budget Band (Tier 1 / 3)",
-        "low": "Lower Market Tier",
-        "high": "Entry-to-Mid Tier",
+        "fair": "Budget Band (Tier 1 of 3)",
+        "low": "Entry / Lower Quantile",
+        "high": "Budget Ceiling",
     },
     1: {
-        "fair": "Mid-Market Band (Tier 2 / 3)",
-        "low": "Mid-Low Tier",
-        "high": "Mid-High Tier",
+        "fair": "Mid-Market Band (Tier 2 of 3)",
+        "low": "Mid-Range Floor",
+        "high": "Mid-Range Ceiling",
     },
     2: {
-        "fair": "Premium Band (Tier 3 / 3)",
-        "low": "Upper-Mid Tier",
+        "fair": "Premium Band (Tier 3 of 3)",
+        "low": "Upper-Mid Floor",
         "high": "Top Market Tier",
     },
 }
@@ -81,33 +81,45 @@ async def predict(
         if not EXPECTED_FEATURES:
             raise ValueError("Model does not expose feature_names_in_.")
 
-        # Start with all expected dummy/feature columns set to 0
         row = {col: 0 for col in EXPECTED_FEATURES}
 
-        fuel_clean = fuel.strip().lower()
-        trans_clean = transmission.strip().lower()
+        age = max(0, 2026 - year)
+        log_kms = float(np.log1p(max(0.0, kms_driven)))
+        fuel_token = fuel.strip().lower()
+        trans_token = transmission.strip().lower()
 
-        # Set matching fuel dummy column if present (e.g., Fuel_Petrol/CNG, Fuel_Diesel, etc.)
         for col in EXPECTED_FEATURES:
-            col_low = col.lower()
-            if col_low.startswith("fuel_"):
-                if fuel_clean in col_low:
-                    row[col] = 1
-            elif col_low.startswith("type_") or col_low.startswith("transmission_"):
-                if trans_clean in col_low:
-                    row[col] = 1
+            c_low = col.lower()
+            if c_low in ("age", "car_age"):
+                row[col] = age
+            elif c_low in ("year", "model_year"):
+                row[col] = year
+            elif c_low in ("kms_driven", "km_driven", "mileage"):
+                row[col] = kms_driven
+            elif c_low in ("log_kms", "log_km"):
+                row[col] = log_kms
+            elif c_low.startswith("fuel_") and fuel_token in c_low:
+                row[col] = 1
+            elif (c_low.startswith("type_") or c_low.startswith("transmission_")) and trans_token in c_low:
+                row[col] = 1
 
-        input_data = pd.DataFrame([row], columns=EXPECTED_FEATURES)
-        pred_class = int(model.predict(input_data)[0])
-        info = BAND_DISPLAY.get(pred_class, BAND_DISPLAY[1])
+        X_input = pd.DataFrame([row], columns=EXPECTED_FEATURES)
+        pred_raw = model.predict(X_input)[0]
+
+        try:
+            pred_key = int(pred_raw)
+        except (ValueError, TypeError):
+            pred_key = 1
+
+        tier = TIER_MAP.get(pred_key, TIER_MAP[1])
 
         return JSONResponse(
             status_code=200,
             content={
                 "status": "success",
-                "fairPriceDisplay": info["fair"],
-                "lowEstDisplay": info["low"],
-                "highEstDisplay": info["high"],
+                "fairPriceDisplay": tier["fair"],
+                "lowEstDisplay": tier["low"],
+                "highEstDisplay": tier["high"],
             },
         )
     except Exception as e:
