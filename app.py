@@ -7,6 +7,32 @@ import joblib
 import numpy as np
 import pandas as pd
 
+import ml_model
+
+@app.get("/api/cars")
+async def api_cars():
+    """Cars that have a real listed price on CarDekho (no placeholders)."""
+    return [
+        {"model": c["model"], "price": ml_model._display_price(c["price"])}
+        for c in ml_model.known_cars()
+        if c["price"].startswith("Rs.")
+    ]
+
+@app.post("/api/price")
+async def api_price(model: str = Form(...)):
+    try:
+        result = ml_model.predict_price({"model": model})
+    except ml_model.UnknownCar as e:
+        return JSONResponse(
+            status_code=404,
+            content={
+                "status": "unknown",
+                "message": f"'{e.name}' isn't in the car list.",
+                "suggestions": e.suggestions,
+            },
+        )
+    return {"status": "success", **result}
+
 app = FastAPI(title="CarPrice AI - Valuation Platform")
 
 if os.path.isdir("static"):
