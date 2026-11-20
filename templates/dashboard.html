@@ -1,30 +1,27 @@
 {% extends "base.html" %}
-{% block title %}Estimate price - Car price AI{% endblock %}
+{% block title %}Valuation - Car price AI{% endblock %}
 {% block head %}
 <style>
-  .dash { --g: #0e3b2e; max-width: 760px; margin: 0 auto; padding: 24px; }
+  .dash { --g: #0e3b2e; max-width: 1040px; margin: 0 auto; padding: 24px; }
   .dash-top { display: flex; align-items: center; justify-content: space-between; margin-bottom: 28px; }
   .dash-top .brand { display: flex; align-items: center; gap: 10px; font-weight: 600; color: var(--g); text-decoration: none; }
   .dash-top .brand svg { width: 32px; height: 32px; }
   .dash-links { display: flex; gap: 14px; font-size: 14px; }
   .dash-links a { color: var(--g); }
-  .dash-card { border: 1px solid rgba(14,59,46,.18); border-radius: 12px; padding: 24px; background: #fff; margin-bottom: 20px; }
+  .dash-grid { display: grid; gap: 24px; grid-template-columns: 1fr; }
+  @media (min-width: 800px) { .dash-grid { grid-template-columns: 1fr 1fr; } }
+  .dash-card { border: 1px solid rgba(14,59,46,.18); border-radius: 12px; padding: 24px; background: #fff; }
   .dash-card h2 { margin: 0 0 4px; font-size: 20px; }
   .dash-card .sub { margin: 0 0 20px; font-size: 14px; opacity: .7; }
   .dash-card select { width: 100%; padding: 10px 12px; border: 1px solid rgba(14,59,46,.3); border-radius: 8px; font: inherit; background: #fff; }
   .dash-card .btn { width: 100%; }
-  .row2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
   .dash-result { padding: 16px; border-radius: 10px; background: rgba(14,59,46,.07); margin-bottom: 14px; }
   .dash-result .lbl { font-size: 12px; opacity: .7; margin: 0 0 4px; }
   .dash-result .val { margin: 0; font-size: 20px; font-weight: 700; color: var(--g); }
-  .dash-result.big .val { font-size: 28px; }
-  .dash-two { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .dash-two { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 14px; }
   .dash-two .val { font-size: 16px; }
   .dash-link { display: block; text-align: center; padding: 10px; border: 1px solid var(--g); border-radius: 8px; color: var(--g); text-decoration: none; font-weight: 500; }
   .dash-link:hover { background: rgba(14,59,46,.07); }
-  .chips { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px; }
-  .chip { border: 1px solid var(--g); background: #fff; color: var(--g); border-radius: 999px; padding: 4px 12px; cursor: pointer; font: inherit; font-size: 13px; }
-  .note-small { font-size: 12px; opacity: .65; margin: 10px 0 0; }
 </style>
 {% endblock %}
 
@@ -36,140 +33,98 @@
       Car price AI
     </a>
     <nav class="dash-links">
-      <a href="https://www.cardekho.com" target="_blank" rel="noopener noreferrer">CarDekho</a>
-      <a href="/logout">Log out</a>
+      <a href="https://www.cardekho.com/used-cars" target="_blank" rel="noopener noreferrer">CarDekho</a>
+      <a href="/">Log out</a>
     </nav>
   </div>
 
-  <section class="dash-card">
-    <h2>Add your car's details</h2>
-    <p class="sub">Choose the car from the list or type its name, then fill in the details.</p>
-
-    <form id="carForm" autocomplete="off">
-      <div class="field">
-        <label for="carSelect">Choose from list</label>
-        <select id="carSelect"><option value="">Loading cars...</option></select>
-      </div>
-      <div class="field">
-        <label for="carInput">Or type the car name</label>
-        <input id="carInput" name="model" list="carList" placeholder="e.g. Hyundai Creta" required>
-        <datalist id="carList"></datalist>
-      </div>
-
-      <div class="row2">
+  <div class="dash-grid">
+    <section class="dash-card">
+      <h2>Vehicle details</h2>
+      <p class="sub">Enter the car's details to estimate its market price.</p>
+      <form id="predictionForm">
         <div class="field">
-          <label for="year">Year of purchase</label>
+          <label for="car_name">Car name / model</label>
+          <input id="car_name" name="car_name" type="text" placeholder="e.g. Hyundai Creta">
+        </div>
+        <div class="field">
+          <label for="year">Year of model</label>
           <input id="year" name="year" type="number" min="1995" max="2026" value="2020" required>
         </div>
         <div class="field">
-          <label for="kms">Kilometres driven</label>
-          <input id="kms" name="kms_driven" type="number" min="0" step="100" value="45000" required>
+          <label for="kms_driven">Kilometres driven</label>
+          <input id="kms_driven" name="kms_driven" type="number" min="0" step="100" value="45000" required>
         </div>
-      </div>
-      <div class="row2">
         <div class="field">
           <label for="fuel">Fuel type</label>
           <select id="fuel" name="fuel">
-            <option>Petrol</option><option>Diesel</option><option>CNG</option><option>Electric</option>
+            <option>Petrol</option><option selected>Diesel</option><option>CNG</option><option>Electric</option>
           </select>
         </div>
         <div class="field">
-          <label for="trans">Transmission</label>
-          <select id="trans" name="transmission">
-            <option>Manual</option><option>Automatic</option>
+          <label for="transmission">Transmission</label>
+          <select id="transmission" name="transmission">
+            <option selected>Manual</option><option>Automatic</option>
           </select>
         </div>
-      </div>
-      <button class="btn" type="submit" id="goBtn">Estimate price</button>
-    </form>
-    <p id="errorBox" class="error" role="alert" hidden></p>
-    <div id="chips" class="chips"></div>
-  </section>
+        <button class="btn" type="submit" id="submitBtn">Predict price</button>
+      </form>
+    </section>
 
-  <section class="dash-card" id="resultCard" hidden>
-    <h2 id="rName"></h2>
-    <p class="sub" id="rSub"></p>
-    <div class="dash-result big">
-      <p class="lbl">Estimated used price</p>
-      <p id="rFair" class="val"></p>
-    </div>
-    <div class="dash-two">
-      <div class="dash-result"><p class="lbl">Lower estimate</p><p id="rLow" class="val"></p></div>
-      <div class="dash-result"><p class="lbl">Upper estimate</p><p id="rHigh" class="val"></p></div>
-    </div>
-    <div class="dash-two">
-      <div class="dash-result"><p class="lbl">CarDekho new price</p><p id="rListed" class="val"></p></div>
-      <div class="dash-result"><p class="lbl">Price band</p><p id="rBand" class="val"></p></div>
-    </div>
-    <a id="rLink" class="dash-link" href="#" target="_blank" rel="noopener noreferrer">View on CarDekho</a>
-    <p class="note-small">This is an estimate. It starts from the CarDekho listed price and adjusts for the car's age, kilometres, fuel and transmission. The actual market price may differ.</p>
-  </section>
+    <section class="dash-card">
+      <h2>Estimated valuation</h2>
+      <p class="sub">Price estimate from the Random Forest model.</p>
+      <p id="errorBox" class="error" role="alert" hidden></p>
+
+      <div class="dash-result">
+        <p class="lbl">Estimated fair price</p>
+        <p id="fairPriceDisplay" class="val">Click Predict price</p>
+      </div>
+      <div class="dash-two">
+        <div class="dash-result"><p class="lbl">Lower estimate</p><p id="lowEstDisplay" class="val">—</p></div>
+        <div class="dash-result"><p class="lbl">Upper estimate</p><p id="highEstDisplay" class="val">—</p></div>
+      </div>
+      <a id="cardekhoLink" class="dash-link" href="https://www.cardekho.com/used-cars" target="_blank" rel="noopener noreferrer">Compare listings on CarDekho</a>
+    </section>
+  </div>
 </main>
 
 <script>
-  const sel = document.getElementById("carSelect");
-  const input = document.getElementById("carInput");
-  const list = document.getElementById("carList");
-  const errorBox = document.getElementById("errorBox");
-  const chips = document.getElementById("chips");
-  const resultCard = document.getElementById("resultCard");
-  const form = document.getElementById("carForm");
+  function updateCarDekhoLink() {
+    const name = document.getElementById("car_name").value.trim();
+    const year = document.getElementById("year").value;
+    document.getElementById("cardekhoLink").href = name
+      ? "https://www.google.com/search?q=" + encodeURIComponent("site:cardekho.com used " + name + " " + year)
+      : "https://www.cardekho.com/used-cars";
+  }
+  ["car_name", "year"].forEach(id => document.getElementById(id).addEventListener("input", updateCarDekhoLink));
 
-  fetch("/api/cars").then(r => r.json()).then(cars => {
-    sel.innerHTML = '<option value="">Select a car...</option>';
-    cars.forEach(c => {
-      const o = document.createElement("option");
-      o.value = c.model; o.textContent = c.model + " - " + c.price;
-      sel.appendChild(o);
-      const d = document.createElement("option");
-      d.value = c.model; d.label = c.price;
-      list.appendChild(d);
-    });
-  }).catch(() => { sel.innerHTML = '<option value="">Could not load cars</option>'; });
-
-  sel.addEventListener("change", () => { if (sel.value) input.value = sel.value; });
-  input.addEventListener("input", () => {
-    const match = [...sel.options].find(o => o.value.toLowerCase() === input.value.trim().toLowerCase());
-    sel.value = match ? match.value : "";
-  });
-
-  form.addEventListener("submit", async (e) => {
+  document.getElementById("predictionForm").addEventListener("submit", async function (e) {
     e.preventDefault();
-    const btn = document.getElementById("goBtn");
-    errorBox.hidden = true; chips.innerHTML = ""; resultCard.hidden = true;
-    btn.disabled = true; btn.textContent = "Estimating...";
+    const btn = document.getElementById("submitBtn");
+    const errorBox = document.getElementById("errorBox");
+    errorBox.hidden = true;
+    btn.textContent = "Predicting...";
+    btn.disabled = true;
     try {
-      const fd = new FormData(form);
-      fd.set("model", input.value.trim());
-      const res = await fetch("/api/estimate", { method: "POST", body: fd });
-      const text = await res.text();
-      let d;
-      try { d = JSON.parse(text); } catch (x) { throw new Error("Server error. Please try again."); }
-      if (d.status === "success") {
-        document.getElementById("rName").textContent = d.matched_model;
-        document.getElementById("rSub").textContent = fd.get("year") + " model, " + d.age + " year(s) old, " + Number(fd.get("kms_driven")).toLocaleString("en-IN") + " km, " + fd.get("fuel") + ", " + fd.get("transmission");
-        document.getElementById("rFair").textContent = d.fair;
-        document.getElementById("rLow").textContent = d.low;
-        document.getElementById("rHigh").textContent = d.high;
-        document.getElementById("rListed").textContent = d.listed_price;
-        document.getElementById("rBand").textContent = d.category_label;
-        document.getElementById("rLink").href = d.url;
-        resultCard.hidden = false;
-        resultCard.scrollIntoView({ behavior: "smooth" });
+      const fd = new FormData(this);
+      const res = await fetch("/predict", { method: "POST", body: fd });
+      const data = await res.json();
+      if (data.status === "success") {
+        document.getElementById("fairPriceDisplay").textContent = data.fairPriceDisplay;
+        document.getElementById("lowEstDisplay").textContent = data.lowEstDisplay;
+        document.getElementById("highEstDisplay").textContent = data.highEstDisplay;
+        updateCarDekhoLink();
       } else {
-        errorBox.textContent = d.message || "Could not estimate that car.";
+        errorBox.textContent = data.message || "Prediction failed. Check the details and try again.";
         errorBox.hidden = false;
-        (d.suggestions || []).forEach(s => {
-          const b = document.createElement("button");
-          b.type = "button"; b.className = "chip"; b.textContent = s;
-          b.onclick = () => { input.value = s; sel.value = s; form.requestSubmit(); };
-          chips.appendChild(b);
-        });
       }
     } catch (err) {
-      errorBox.textContent = err.message; errorBox.hidden = false;
+      errorBox.textContent = "Request failed: " + err.message;
+      errorBox.hidden = false;
     } finally {
-      btn.disabled = false; btn.textContent = "Estimate price";
+      btn.textContent = "Predict price";
+      btn.disabled = false;
     }
   });
 </script>
