@@ -17,23 +17,31 @@ templates = Jinja2Templates(directory="templates")
 model = joblib.load("car_model_rf.pkl")
 EXPECTED_FEATURES = list(getattr(model, "feature_names_in_", []))
 
-TIER_MAP = {
+# Estimated INR price ranges per quantile class (0: Budget, 1: Mid, 2: Premium)
+PRICE_BANDS = {
     0: {
-        "fair": "Budget Band (Tier 1 of 3)",
-        "low": "Entry / Lower Quantile",
-        "high": "Budget Ceiling",
+        "fair_num": 350000,
+        "low_num": 220000,
+        "high_num": 480000,
+        "tier_label": "Budget Tier (Class 0)",
     },
     1: {
-        "fair": "Mid-Market Band (Tier 2 of 3)",
-        "low": "Mid-Range Floor",
-        "high": "Mid-Range Ceiling",
+        "fair_num": 650000,
+        "low_num": 480000,
+        "high_num": 850000,
+        "tier_label": "Mid-Market Tier (Class 1)",
     },
     2: {
-        "fair": "Premium Band (Tier 3 of 3)",
-        "low": "Upper-Mid Floor",
-        "high": "Top Market Tier",
+        "fair_num": 1250000,
+        "low_num": 850000,
+        "high_num": 1800000,
+        "tier_label": "Premium Tier (Class 2)",
     },
 }
+
+
+def format_inr(amount: float) -> str:
+    return f"₹ {amount:,.0f}"
 
 
 @app.api_route("/", methods=["GET", "HEAD"], response_class=HTMLResponse)
@@ -111,19 +119,30 @@ async def predict(
         pred_raw = model.predict(X_input)[0]
 
         try:
-            pred_key = int(pred_raw)
+            pred_class = int(pred_raw)
         except (ValueError, TypeError):
-            pred_key = 1
+            pred_class = 1
 
-        tier = TIER_MAP.get(pred_key, TIER_MAP[1])
+        band = PRICE_BANDS.get(pred_class, PRICE_BANDS[1])
+
+        # Slight age & usage adjustment around the band's center
+        age_factor = max(0.75, 1.0 - (age * 0.03))
+        km_factor = max(0.80, 1.0 - (kms_driven / 500000.0))
+        adj = (age_factor + km_factor) / 2.0
+
+        fair_val = band["fair_num"] * adj
+        low_val = band["low_num"] * adj
+        high_val = band["high_num"] * adj
+
+        title_prefix = f"{car_name.strip()} • " if car_name.strip() else ""
 
         return JSONResponse(
             status_code=200,
             content={
                 "status": "success",
-                "fairPriceDisplay": tier["fair"],
-                "lowEstDisplay": tier["low"],
-                "highEstDisplay": tier["high"],
+                "fairPriceDisplay": f"{title_prefix}{format_inr(fair_val)} ({band['tier_label']})",
+                "lowEstDisplay": format_inr(low_val),
+                "highEstDisplay": format_inr(high_val),
             },
         )
     except Exception as e:
