@@ -7,6 +7,14 @@ import joblib
 import numpy as np
 import pandas as pd
 
+@app.api_route("/", methods=["GET", "HEAD"], response_class=HTMLResponse)
+async def read_root(request: Request):
+    return templates.TemplateResponse(
+        request=request,
+        name="login.html",
+        context={"request": request},
+    )
+
 # 1. Initialize FastAPI app first
 app = FastAPI(title="FreshRoute AI - Car Price Prediction")
 
