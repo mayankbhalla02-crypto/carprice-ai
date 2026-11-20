@@ -76,6 +76,7 @@ async def predict(
     kms_driven: float = Form(...),
     fuel: str = Form(...),
     transmission: str = Form(...),
+    car_name: str = Form(""),
 ):
     try:
         if not EXPECTED_FEATURES:
@@ -87,6 +88,7 @@ async def predict(
         log_kms = float(np.log1p(max(0.0, kms_driven)))
         fuel_token = fuel.strip().lower()
         trans_token = transmission.strip().lower()
+        car_token = car_name.strip().lower()
 
         for col in EXPECTED_FEATURES:
             c_low = col.lower()
@@ -101,6 +103,8 @@ async def predict(
             elif c_low.startswith("fuel_") and fuel_token in c_low:
                 row[col] = 1
             elif (c_low.startswith("type_") or c_low.startswith("transmission_")) and trans_token in c_low:
+                row[col] = 1
+            elif car_token and c_low.startswith("model_") and car_token in c_low:
                 row[col] = 1
 
         X_input = pd.DataFrame([row], columns=EXPECTED_FEATURES)
