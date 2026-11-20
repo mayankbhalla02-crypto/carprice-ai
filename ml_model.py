@@ -1,60 +1,35 @@
-"""Price-band model for the CarDekho dataset.
+"""Price-band lookup for the CarDekho dataset (fail-safe version).
 
-Predictions come from the trained RandomForest in car_model_rf.pkl.
-If that file cannot be used on this machine, the same model is rebuilt from
-Cardekho.csv and saved as car_model_rf.local.pkl. The original .pkl is never
-modified.
+Bands and prices come straight from Cardekho.csv, so the page works even if
+the saved model file cannot be loaded. The RandomForest is only an optional
+extra check.
 """
 import difflib
-import logging
 import threading
-import warnings
 from pathlib import Path
 
-import joblib
-import numpy as np
 import pandas as pd
 
 BASE_DIR = Path(__file__).resolve().parent
 DATA_PATH = BASE_DIR / "Cardekho.csv"
 MODEL_PATH = BASE_DIR / "car_model_rf.pkl"
-LOCAL_MODEL_PATH = BASE_DIR / "car_model_rf.local.pkl"
 
-FUEL_OPTIONS = ["Petrol", "Petrol/CNG"]
-TYPE_OPTIONS = ["Manual", "Manual/Automatic"]
 BAND_NAMES = ["Budget", "Mid-range", "Premium"]
-MIN_AGREEMENT = 0.95
-
 RUPEE = "\u20b9"
-log = logging.getLogger("carai.model")
 
 
 class UnknownCar(ValueError):
-    """Raised when the requested car name is not in the training data."""
-
     def __init__(self, name, suggestions):
         super().__init__(name)
         self.name = name
         self.suggestions = suggestions
 
 
-def _read_data():
-    if not DATA_PATH.exists():
-        raise FileNotFoundError(
-            "Cardekho.csv is missing. Keep it in the same folder as app.py."
-        )
-    df = pd.read_csv(DATA_PATH)
-    df["model"] = df["model"].astype(str).str.strip()
-    return df
-
-
-def _design_matrix(df):
-    return pd.get_dummies(df[["model", "fuel", "Type"]], drop_first=True).astype(int)
-
-
-def _labels(df):
-    y, edges = pd.qcut(df["max_price"], q=3, labels=[0, 1, 2], retbins=True)
-    return y.astype(int).to_numpy(), edges
+def _clean(value):
+    if value is None or (isinstance(value, float) and value != value):
+        return ""
+    text = str(value).strip()
+    return "" if text in ("None", "nan", "NaN") else text
 
 
 def _money(value):
@@ -65,44 +40,8 @@ def _money(value):
     return f"{RUPEE}{lakh:.0f} lakh"
 
 
-def _band_ranges(edges):
-    low, high = _money(edges[1]), _money(edges[2])
-    return [f"Up to {low}", f"{low} to {high}", f"Above {high}"]
-
-
-def _clean(value):
-    return "" if pd.isna(value) else str(value).strip()
-
-
-def _try_load(path, X, y):
-    if not path.exists():
-        return None
-    try:
-        with warnings.catch_warnings():
-            warnings.simplefilter("ignore")
-            obj = joblib.load(path)
-            if isinstance(obj, tuple):
-                obj = obj[0]
-            columns = list(obj.feature_names_in_)
-            if set(columns) != set(X.columns):
-                log.warning("%s was trained on different data than Cardekho.csv", path.name)
-                return None
-            agreement = float(np.mean(obj.predict(X[columns]) == y))
-    except Exception as exc:
-        log.warning("Could not use %s (%s)", path.name, exc)
-        return None
-    if agreement < MIN_AGREEMENT:
-        log.warning("%s disagrees with Cardekho.csv (%.0f%%)", path.name, agreement * 100)
-        return None
-    return obj
-
-
-def _train(X, y):
-    from sklearn.ensemble import RandomForestClassifier
-
-    model = RandomForestClassifier(random_state=42)
-    model.fit(X, y)
-    return model
+def _display_price(text):
+    return text.replace("Rs.", RUPEE).replace("Rs", RUPEE).strip()
 
 
 class _State:
@@ -123,51 +62,52 @@ def get_state():
 
 
 def _build_state():
-    df = _read_data()
-    y, edges = _labels(df)
-    X = _design_matrix(df)
+    df = pd.read_csv(DATA_PATH, keep_default_na=False)
+    df["model"] = df["model"].astype(str).str.strip()
+    df["max_price"] = pd.to_numeric(df["max_price"], errors="coerce")
+    df = df.dropna(subset=["max_price"]).reset_index(drop=True)
 
-    model, source = None, None
-    for path in (MODEL_PATH, LOCAL_MODEL_PATH):
-        model = _try_load(path, X, y)
-        if model is not None:
-            source = path.name
-            break
-    if model is None:
-        log.warning("Rebuilding the model from Cardekho.csv ...")
-        model = _train(X, y)
-        try:
-            joblib.dump(model, LOCAL_MODEL_PATH)
-        except OSError as exc:
-            log.warning("Could not save %s (%s)", LOCAL_MODEL_PATH.name, exc)
-        source = "rebuilt from Cardekho.csv"
+    edges = [float(e) for e in pd.qcut(df["max_price"], q=3, retbins=True)[1]]
+    low, high = _money(edges[1]), _money(edges[2])
 
     st = _State()
-    st.model = model
-    st.columns = list(model.feature_names_in_)
-    st.source = source
-    st.edges = [float(e) for e in edges]
-    st.ranges = _band_ranges(edges)
-    st.cars = [
-        {
-            "model": r.model,
-            "fuel": _clean(r.fuel),
-            "type": _clean(r.Type),
-            "price": _clean(r.price).rstrip("*").strip(),
-            "max_price": float(r.max_price),
-            "url": _clean(r.url),
-        }
-        for r in df.itertuples()
-    ]
+    st.edges = edges
+    st.ranges = [f"Up to {low}", f"{low} to {high}", f"Above {high}"]
+    st.cars = []
+    for _, r in df.iterrows():
+        st.cars.append(
+            {
+                "model": r["model"],
+                "fuel": _clean(r["fuel"]),
+                "type": _clean(r["Type"]),
+                "price": _clean(r["price"]).rstrip("*").strip(),
+                "max_price": float(r["max_price"]),
+                "url": _clean(r["url"]),
+            }
+        )
     st.names = [c["model"] for c in st.cars]
     st.lookup = {}
     for car in st.cars:
         st.lookup.setdefault(car["model"].lower(), car)
+
+    # Optional: the saved RandomForest (never required)
+    st.model = None
+    st.columns = []
+    try:
+        import warnings
+
+        import joblib
+
+        with warnings.catch_warnings():
+            warnings.simplefilter("ignore")
+            obj = joblib.load(MODEL_PATH)
+        if isinstance(obj, tuple):
+            obj = obj[0]
+        st.columns = list(obj.feature_names_in_)
+        st.model = obj
+    except Exception as exc:
+        print("Saved model not used:", repr(exc), flush=True)
     return st
-
-
-def _display_price(text):
-    return text.replace("Rs.", RUPEE).replace("Rs", RUPEE).strip()
 
 
 def known_cars():
@@ -179,19 +119,30 @@ def band_info():
     return [{"label": BAND_NAMES[i], "range": st.ranges[i]} for i in range(3)]
 
 
+def _model_band(st, car):
+    if st.model is None:
+        return None
+    try:
+        row = pd.DataFrame(0, index=[0], columns=st.columns, dtype=int)
+        for col in (f"model_{car['model']}", f"fuel_{car['fuel']}", f"Type_{car['type']}"):
+            if col in row.columns:
+                row.at[0, col] = 1
+        return int(st.model.predict(row)[0])
+    except Exception as exc:
+        print("Model prediction skipped:", repr(exc), flush=True)
+        return None
+
+
 def predict_price(payload):
     st = get_state()
     name = str(payload.get("model") or "").strip()
     car = st.lookup.get(name.lower())
+    if car is None and name:
+        hits = [c for c in st.cars if name.lower() in c["model"].lower()]
+        if len(hits) == 1:
+            car = hits[0]
     if car is None:
-        raise UnknownCar(name, difflib.get_close_matches(name, st.names, n=5, cutoff=0.5))
-
-    fuel, transmission = car["fuel"], car["type"]
-    row = pd.DataFrame(0, index=[0], columns=st.columns, dtype=int)
-    for col in (f"model_{car['model']}", f"fuel_{fuel}", f"Type_{transmission}"):
-        if col in row.columns:
-            row.at[0, col] = 1
-    model_category = int(st.model.predict(row)[0])
+        raise UnknownCar(name, difflib.get_close_matches(name, st.names, n=5, cutoff=0.4))
 
     mp = car["max_price"]
     if mp <= st.edges[1]:
@@ -201,16 +152,17 @@ def predict_price(payload):
     else:
         category = 2
 
+    model_category = _model_band(st, car)
     return {
         "price_category": category,
         "category_label": BAND_NAMES[category],
         "price_range": st.ranges[category],
         "estimated_range": f"{st.ranges[category]} ({BAND_NAMES[category]})",
-        "model_category_label": BAND_NAMES[model_category],
-        "model_agrees": model_category == category,
+        "model_category_label": BAND_NAMES[model_category] if model_category is not None else None,
+        "model_agrees": (model_category == category) if model_category is not None else None,
         "matched_model": car["model"],
-        "fuel": fuel or "Not listed",
-        "transmission": transmission or "Not listed",
+        "fuel": car["fuel"] or "Not listed",
+        "transmission": car["type"] or "Not listed",
         "listed_price": _display_price(car["price"]),
         "url": car["url"],
         "bands": band_info(),
