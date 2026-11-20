@@ -1,30 +1,21 @@
 import os
 from fastapi import FastAPI, Request, Form
-from fastapi.responses import HTMLResponse, JSONResponse
+from fastapi.responses import HTMLResponse, JSONResponse, RedirectResponse
 from fastapi.templating import Jinja2Templates
 from fastapi.staticfiles import StaticFiles
 import joblib
 import numpy as np
 import pandas as pd
 
-# 1. Initialize FastAPI app FIRST (before any @app decorators or app.mount calls)
+# 1. Initialize FastAPI app FIRST
 app = FastAPI(title="FreshRoute AI - Car Price Prediction")
 
 # 2. Mount static files directory if present
 if os.path.isdir("static"):
     app.mount("/static", StaticFiles(directory="static"), name="static")
 
-# 3. Configure Jinja2 templates and Flask-compatible url_for helper
+# 3. Configure Jinja2 templates
 templates = Jinja2Templates(directory="templates")
-
-
-def url_for(request: Request, name: str, **path_params):
-    if name == "static" and "filename" in path_params:
-        path_params["path"] = path_params.pop("filename")
-    return str(request.url_for(name, **path_params))
-
-
-templates.env.globals["url_for"] = url_for
 
 # 4. Load trained Random Forest model
 model = joblib.load("car_model_rf.pkl")
@@ -35,6 +26,22 @@ async def read_root(request: Request):
     return templates.TemplateResponse(
         request=request,
         name="login.html",
+        context={"request": request},
+    )
+
+
+@app.post("/login")
+async def login_submit():
+    return RedirectResponse(url="/dashboard", status_code=303)
+
+
+@app.api_route("/signup", methods=["GET", "POST"], response_class=HTMLResponse)
+async def signup(request: Request):
+    if request.method == "POST":
+        return RedirectResponse(url="/dashboard", status_code=303)
+    return templates.TemplateResponse(
+        request=request,
+        name="signup.html",
         context={"request": request},
     )
 
@@ -94,4 +101,4 @@ if __name__ == "__main__":
     import uvicorn
 
     port = int(os.environ.get("PORT", 8000))
-    uvicorn.run("app:app", host="0.0.0.0", port=port, reload=True)
+    uvicorn.run("app:app", host="0.0.0.0", port=port, reload=False)
