@@ -25,7 +25,7 @@ SESSIONS = {}  # token -> email (in memory; users sign in again after a restart)
 
 
 # ---------------------------------------------------------------- users
-def _hash(password: str) -> str:
+def _hash(password):
     return hashlib.sha256(password.encode()).hexdigest()
 
 
@@ -43,7 +43,7 @@ def _db():
     return conn
 
 
-def _current_user(request: Request):
+def _current_user(request):
     return SESSIONS.get(request.cookies.get("session", ""))
 
 
@@ -51,19 +51,26 @@ def _auth_context(request, **extra):
     try:
         bands = ml_model.band_info()
         count = len(ml_model.known_cars())
-    except Exception:
+    except Exception as exc:
+        print("ml_model failed:", repr(exc), flush=True)
         bands, count = [], 0
     ctx = {"request": request, "bands": bands, "car_count": count}
     ctx.update(extra)
     return ctx
 
 
-def _login_response(email: str):
+def _login_response(email):
     token = secrets.token_urlsafe(32)
     SESSIONS[token] = email
     resp = RedirectResponse(url="/dashboard", status_code=303)
     resp.set_cookie("session", token, httponly=True, samesite="lax")
     return resp
+
+
+def _password_error(password):
+    if len(password) > 5:
+        return None
+    return "Password must be at least 6 characters."
 
 
 # ---------------------------------------------------------------- pages
@@ -100,4 +107,79 @@ async def signup(request: Request):
         error = None
         if "@" not in email:
             error = "Enter a valid email."
-        elif len(password)
+        else:
+            error = _password_error(password)
+        if not error:
+            conn = _db()
+            try:
+                conn.execute(
+                    "INSERT INTO users (email, org_name, password_hash) VALUES (?, ?, ?)",
+                    (email, org_name, _hash(password)),
+                )
+                conn.commit()
+            except sqlite3.IntegrityError:
+                error = "That email is already registered."
+            finally:
+                conn.close()
+        if not error:
+            return _login_response(email)
+        return templates.TemplateResponse(
+            request=request,
+            name="signup.html",
+            context=_auth_context(request, error=error),
+            status_code=400,
+        )
+    return templates.TemplateResponse(
+        request=request, name="signup.html", context=_auth_context(request)
+    )
+
+
+@app.api_route("/dashboard", methods=["GET", "HEAD"], response_class=HTMLResponse)
+async def dashboard(request: Request):
+    if not _current_user(request):
+        return RedirectResponse(url="/", status_code=303)
+    return templates.TemplateResponse(
+        request=request, name="dashboard.html", context={"request": request}
+    )
+
+
+@app.get("/logout")
+async def logout(request: Request):
+    SESSIONS.pop(request.cookies.get("session", ""), None)
+    resp = RedirectResponse(url="/", status_code=303)
+    resp.delete_cookie("session")
+    return resp
+
+
+# ---------------------------------------------------------------- car API
+@app.get("/api/cars")
+async def api_cars():
+    """Cars that have a real listed price on CarDekho (no placeholders)."""
+    return [
+        {"model": c["model"], "price": ml_model._display_price(c["price"])}
+        for c in ml_model.known_cars()
+        if c["price"].startswith("Rs.")
+    ]
+
+
+@app.post("/api/price")
+async def api_price(model: str = Form(...)):
+    try:
+        result = ml_model.predict_price({"model": model})
+    except ml_model.UnknownCar as e:
+        return JSONResponse(
+            status_code=404,
+            content={
+                "status": "unknown",
+                "message": "'" + e.name + "' isn't in the car list.",
+                "suggestions": e.suggestions,
+            },
+        )
+    return {"status": "success", **result}
+
+
+if __name__ == "__main__":
+    import uvicorn
+
+    port = int(os.environ.get("PORT", 8000))
+    uvicorn.run("app:app", host="0.0.0.0", port=port, reload=False)
