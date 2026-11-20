@@ -1,22 +1,34 @@
+import os
 from fastapi import FastAPI, Request, Form
 from fastapi.responses import HTMLResponse, JSONResponse
 from fastapi.templating import Jinja2Templates
+from fastapi.staticfiles import StaticFiles
 import joblib
 import numpy as np
 import pandas as pd
-from fastapi.staticfiles import StaticFiles
 
-app.mount("/static", StaticFiles(directory="static"), name="static")
-
+# 1. Initialize FastAPI app first
 app = FastAPI(title="FreshRoute AI - Car Price Prediction")
+
+# 2. Mount static files directory if present
+if os.path.isdir("static"):
+    app.mount("/static", StaticFiles(directory="static"), name="static")
+
+# 3. Configure Jinja2 templates and Flask-compatible url_for helper
 templates = Jinja2Templates(directory="templates")
+
+
 def url_for(request: Request, name: str, **path_params):
     if name == "static" and "filename" in path_params:
         path_params["path"] = path_params.pop("filename")
     return str(request.url_for(name, **path_params))
 
+
 templates.env.globals["url_for"] = url_for
-model = joblib.load("car_model_rf.pkl")   
+
+# 4. Load trained Random Forest model
+model = joblib.load("car_model_rf.pkl")
+
 
 @app.get("/", response_class=HTMLResponse)
 async def read_root(request: Request):
@@ -36,11 +48,6 @@ async def dashboard(request: Request):
     )
 
 
-@app.get("/dashboard", response_class=HTMLResponse)
-async def dashboard(request: Request):
-    return templates.TemplateResponse("dashboard.html", {"request": request})
-
-
 @app.post("/predict")
 async def predict(
     year: int = Form(...),
@@ -53,7 +60,6 @@ async def predict(
         car_age = max(0, current_year - year)
         log_kms = float(np.log1p(max(0.0, kms_driven)))
 
-        # Normalize fuel string (e.g., "Petrol", "Diesel", "CNG", "Electric")
         fuel_clean = fuel.strip().title()
         transmission_clean = transmission.strip().title()
 
@@ -79,11 +85,13 @@ async def predict(
         )
     except Exception as e:
         return JSONResponse(
-            status_code=500, content={"status": "error", "message": str(e)}
+            status_code=500,
+            content={"status": "error", "message": str(e)},
         )
 
 
 if __name__ == "__main__":
     import uvicorn
 
-    uvicorn.run("app:app", host="0.0.0.0", port=8000, reload=True)
+    port = int(os.environ.get("PORT", 8000))
+    uvicorn.run("app:app", host="0.0.0.0", port=port, reload=True)
