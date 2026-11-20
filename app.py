@@ -4,21 +4,36 @@ from fastapi.responses import HTMLResponse, JSONResponse, RedirectResponse
 from fastapi.templating import Jinja2Templates
 from fastapi.staticfiles import StaticFiles
 import joblib
-import numpy as np
 import pandas as pd
 
-# 1. Initialize FastAPI app FIRST
 app = FastAPI(title="FreshRoute AI - Car Price Prediction")
 
-# 2. Mount static files directory if present
 if os.path.isdir("static"):
     app.mount("/static", StaticFiles(directory="static"), name="static")
 
-# 3. Configure Jinja2 templates
 templates = Jinja2Templates(directory="templates")
 
-# 4. Load trained Random Forest model
 model = joblib.load("car_model_rf.pkl")
+EXPECTED_FEATURES = list(getattr(model, "feature_names_in_", []))
+
+# Price band display mapping for classes 0, 1, 2 (from qcut q=3)
+BAND_DISPLAY = {
+    0: {
+        "fair": "Budget Band (Tier 1 / 3)",
+        "low": "Lower Market Tier",
+        "high": "Entry-to-Mid Tier",
+    },
+    1: {
+        "fair": "Mid-Market Band (Tier 2 / 3)",
+        "low": "Mid-Low Tier",
+        "high": "Mid-High Tier",
+    },
+    2: {
+        "fair": "Premium Band (Tier 3 / 3)",
+        "low": "Upper-Mid Tier",
+        "high": "Top Market Tier",
+    },
+}
 
 
 @app.api_route("/", methods=["GET", "HEAD"], response_class=HTMLResponse)
@@ -63,31 +78,36 @@ async def predict(
     transmission: str = Form(...),
 ):
     try:
-        current_year = 2026
-        car_age = max(0, current_year - year)
-        log_kms = float(np.log1p(max(0.0, kms_driven)))
+        if not EXPECTED_FEATURES:
+            raise ValueError("Model does not expose feature_names_in_.")
 
-        fuel_clean = fuel.strip().title()
-        transmission_clean = transmission.strip().title()
+        # Start with all expected dummy/feature columns set to 0
+        row = {col: 0 for col in EXPECTED_FEATURES}
 
-        input_data = pd.DataFrame(
-            [[car_age, log_kms, fuel_clean, transmission_clean]],
-            columns=["age", "log_kms", "fuel", "transmission"],
-        )
+        fuel_clean = fuel.strip().lower()
+        trans_clean = transmission.strip().lower()
 
-        predicted_price = float(model.predict(input_data)[0])
+        # Set matching fuel dummy column if present (e.g., Fuel_Petrol/CNG, Fuel_Diesel, etc.)
+        for col in EXPECTED_FEATURES:
+            col_low = col.lower()
+            if col_low.startswith("fuel_"):
+                if fuel_clean in col_low:
+                    row[col] = 1
+            elif col_low.startswith("type_") or col_low.startswith("transmission_"):
+                if trans_clean in col_low:
+                    row[col] = 1
 
-        fair_price = round(predicted_price, 2)
-        low_price = round(fair_price * 0.92, 2)
-        high_price = round(fair_price * 1.08, 2)
+        input_data = pd.DataFrame([row], columns=EXPECTED_FEATURES)
+        pred_class = int(model.predict(input_data)[0])
+        info = BAND_DISPLAY.get(pred_class, BAND_DISPLAY[1])
 
         return JSONResponse(
             status_code=200,
             content={
                 "status": "success",
-                "fairPriceDisplay": f"₹ {fair_price:,.2f}",
-                "lowEstDisplay": f"₹ {low_price:,.2f}",
-                "highEstDisplay": f"₹ {high_price:,.2f}",
+                "fairPriceDisplay": info["fair"],
+                "lowEstDisplay": info["low"],
+                "highEstDisplay": info["high"],
             },
         )
     except Exception as e:
