@@ -10,7 +10,13 @@ app.mount("/static", StaticFiles(directory="static"), name="static")
 
 app = FastAPI(title="FreshRoute AI - Car Price Prediction")
 templates = Jinja2Templates(directory="templates")
-model = joblib.load("car_model_rf.pkl")
+def url_for(request: Request, name: str, **path_params):
+    if name == "static" and "filename" in path_params:
+        path_params["path"] = path_params.pop("filename")
+    return str(request.url_for(name, **path_params))
+
+templates.env.globals["url_for"] = url_for
+model = joblib.load("car_model_rf.pkl")   
 
 @app.get("/", response_class=HTMLResponse)
 async def read_root(request: Request):
