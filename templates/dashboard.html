@@ -1,153 +1,131 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>CarPrice AI — Valuation Dashboard</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-</head>
-<body class="min-h-screen bg-slate-950 text-slate-100 flex flex-col justify-between">
-  <header class="border-b border-slate-800 bg-slate-900">
-    <div class="max-w-5xl mx-auto px-6 py-4 flex items-center justify-between">
-      <div class="flex items-center gap-3">
-        <div class="h-9 w-9 rounded-lg bg-blue-600 flex items-center justify-center font-bold text-white">AI</div>
-        <div>
-          <h1 class="text-lg font-semibold">CarPrice AI</h1>
-          <p class="text-xs text-slate-400">Random Forest Valuation Engine</p>
+{% extends "base.html" %}
+{% block title %}Valuation - Car price AI{% endblock %}
+{% block head %}
+<style>
+  .dash { --g: #0e3b2e; max-width: 1040px; margin: 0 auto; padding: 24px; }
+  .dash-top { display: flex; align-items: center; justify-content: space-between; margin-bottom: 28px; }
+  .dash-top .brand { display: flex; align-items: center; gap: 10px; font-weight: 600; color: var(--g); text-decoration: none; }
+  .dash-top .brand svg { width: 32px; height: 32px; }
+  .dash-links { display: flex; gap: 14px; font-size: 14px; }
+  .dash-links a { color: var(--g); }
+  .dash-grid { display: grid; gap: 24px; grid-template-columns: 1fr; }
+  @media (min-width: 800px) { .dash-grid { grid-template-columns: 1fr 1fr; } }
+  .dash-card { border: 1px solid rgba(14,59,46,.18); border-radius: 12px; padding: 24px; background: #fff; }
+  .dash-card h2 { margin: 0 0 4px; font-size: 20px; }
+  .dash-card .sub { margin: 0 0 20px; font-size: 14px; opacity: .7; }
+  .dash-card select { width: 100%; padding: 10px 12px; border: 1px solid rgba(14,59,46,.3); border-radius: 8px; font: inherit; background: #fff; }
+  .dash-card .btn { width: 100%; }
+  .dash-result { padding: 16px; border-radius: 10px; background: rgba(14,59,46,.07); margin-bottom: 14px; }
+  .dash-result .lbl { font-size: 12px; opacity: .7; margin: 0 0 4px; }
+  .dash-result .val { margin: 0; font-size: 20px; font-weight: 700; color: var(--g); }
+  .dash-two { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 14px; }
+  .dash-two .val { font-size: 16px; }
+  .dash-link { display: block; text-align: center; padding: 10px; border: 1px solid var(--g); border-radius: 8px; color: var(--g); text-decoration: none; font-weight: 500; }
+  .dash-link:hover { background: rgba(14,59,46,.07); }
+</style>
+{% endblock %}
+
+{% block body %}
+<main class="dash">
+  <div class="dash-top">
+    <a class="brand" href="/dashboard">
+      <svg viewBox="0 0 32 32" aria-hidden="true"><rect width="32" height="32" rx="7" fill="#0e3b2e"/><rect x="6" y="18" width="5" height="8" fill="#fff" opacity=".55"/><rect x="13.5" y="13" width="5" height="13" fill="#fff" opacity=".75"/><rect x="21" y="7" width="5" height="19" fill="#fff"/></svg>
+      Car price AI
+    </a>
+    <nav class="dash-links">
+      <a href="https://www.cardekho.com/used-cars" target="_blank" rel="noopener noreferrer">CarDekho</a>
+      <a href="/">Log out</a>
+    </nav>
+  </div>
+
+  <div class="dash-grid">
+    <section class="dash-card">
+      <h2>Vehicle details</h2>
+      <p class="sub">Enter the car's details to estimate its market price.</p>
+      <form id="predictionForm">
+        <div class="field">
+          <label for="car_name">Car name / model</label>
+          <input id="car_name" name="car_name" type="text" placeholder="e.g. Hyundai Creta">
         </div>
-      </div>
-      <a href="/" class="text-sm text-slate-300 hover:text-white border border-slate-700 px-3 py-1.5 rounded-lg">Logout</a>
-    </div>
-  </header>
-
-  <main class="max-w-5xl w-full mx-auto px-6 py-10 grid grid-cols-1 md:grid-cols-2 gap-8">
-    <section class="bg-slate-900 border border-slate-800 rounded-2xl p-6 shadow-xl">
-      <h2 class="text-xl font-semibold mb-1">Vehicle Details</h2>
-      <p class="text-sm text-slate-400 mb-6">Enter car details to estimate market price.</p>
-
-      <form id="predictionForm" class="space-y-4">
-        <div>
-          <label for="car_name" class="block text-sm font-medium text-slate-300 mb-1">Car Name / Model</label>
-          <input type="text" id="car_name" name="car_name" placeholder="e.g. Hyundai Creta, Maruti Swift"
-            class="w-full px-3.5 py-2.5 rounded-lg bg-slate-800 border border-slate-700 text-white focus:outline-none focus:border-blue-500" />
+        <div class="field">
+          <label for="year">Year of model</label>
+          <input id="year" name="year" type="number" min="1995" max="2026" value="2020" required>
         </div>
-
-        <div>
-          <label for="year" class="block text-sm font-medium text-slate-300 mb-1">Year of Model</label>
-          <input type="number" id="year" name="year" min="1995" max="2026" value="2020" required
-            class="w-full px-3.5 py-2.5 rounded-lg bg-slate-800 border border-slate-700 text-white focus:outline-none focus:border-blue-500" />
+        <div class="field">
+          <label for="kms_driven">Kilometres driven</label>
+          <input id="kms_driven" name="kms_driven" type="number" min="0" step="100" value="45000" required>
         </div>
-
-        <div>
-          <label for="kms_driven" class="block text-sm font-medium text-slate-300 mb-1">KM Running</label>
-          <input type="number" id="kms_driven" name="kms_driven" min="0" step="100" value="45000" required
-            class="w-full px-3.5 py-2.5 rounded-lg bg-slate-800 border border-slate-700 text-white focus:outline-none focus:border-blue-500" />
-        </div>
-
-        <div>
-          <label for="fuel" class="block text-sm font-medium text-slate-300 mb-1">Fuel Type</label>
-          <select id="fuel" name="fuel"
-            class="w-full px-3.5 py-2.5 rounded-lg bg-slate-800 border border-slate-700 text-white focus:outline-none focus:border-blue-500">
-            <option value="Petrol">Petrol</option>
-            <option value="Diesel" selected>Diesel</option>
-            <option value="CNG">CNG</option>
-            <option value="Electric">Electric</option>
+        <div class="field">
+          <label for="fuel">Fuel type</label>
+          <select id="fuel" name="fuel">
+            <option>Petrol</option><option selected>Diesel</option><option>CNG</option><option>Electric</option>
           </select>
         </div>
-
-        <div>
-          <label for="transmission" class="block text-sm font-medium text-slate-300 mb-1">Transmission</label>
-          <select id="transmission" name="transmission"
-            class="w-full px-3.5 py-2.5 rounded-lg bg-slate-800 border border-slate-700 text-white focus:outline-none focus:border-blue-500">
-            <option value="Manual" selected>Manual</option>
-            <option value="Automatic">Automatic</option>
+        <div class="field">
+          <label for="transmission">Transmission</label>
+          <select id="transmission" name="transmission">
+            <option selected>Manual</option><option>Automatic</option>
           </select>
         </div>
-
-        <button type="submit" id="submitBtn"
-          class="w-full py-3 px-4 rounded-lg bg-blue-600 hover:bg-blue-500 font-semibold text-white transition cursor-pointer">
-          Predict Price
-        </button>
+        <button class="btn" type="submit" id="submitBtn">Predict price</button>
       </form>
     </section>
 
-    <section class="bg-slate-900 border border-slate-800 rounded-2xl p-6 shadow-xl flex flex-col justify-between">
-      <div>
-        <span class="inline-block text-xs font-medium uppercase tracking-wider text-blue-400 bg-blue-950/60 border border-blue-800/60 px-2.5 py-1 rounded-full mb-3">
-          Live Model Output
-        </span>
-        <h2 class="text-xl font-semibold mb-1">Estimated Valuation</h2>
-        <p class="text-sm text-slate-400 mb-6">Predicted price estimate from Random Forest model.</p>
+    <section class="dash-card">
+      <h2>Estimated valuation</h2>
+      <p class="sub">Price estimate from the Random Forest model.</p>
+      <p id="errorBox" class="error" role="alert" hidden></p>
 
-        <div id="errorBox" class="hidden mb-4 p-3 rounded-lg bg-red-950/70 border border-red-800 text-red-200 text-sm"></div>
-
-        <div class="p-5 rounded-xl bg-slate-800/80 border border-slate-700 mb-4">
-          <p class="text-xs uppercase tracking-wider text-slate-400 mb-1">Estimated Fair Price</p>
-          <p id="fairPriceDisplay" class="text-xl font-bold text-emerald-400">Ready — Click Predict Price</p>
-        </div>
-
-        <div class="grid grid-cols-2 gap-4">
-          <div class="p-4 rounded-xl bg-slate-800/60 border border-slate-700">
-            <p class="text-xs text-slate-400 mb-1">Lower Estimate</p>
-            <p id="lowEstDisplay" class="text-base font-semibold text-slate-200">—</p>
-          </div>
-          <div class="p-4 rounded-xl bg-slate-800/60 border border-slate-700">
-            <p class="text-xs text-slate-400 mb-1">Upper Estimate</p>
-            <p id="highEstDisplay" class="text-base font-semibold text-slate-200">—</p>
-          </div>
-        </div>
+      <div class="dash-result">
+        <p class="lbl">Estimated fair price</p>
+        <p id="fairPriceDisplay" class="val">Click Predict price</p>
       </div>
-
-      <div class="mt-6 pt-4 border-t border-slate-800 text-xs text-slate-400 flex justify-between">
-        <span>Model: car_model_rf.pkl</span>
-        <span class="text-emerald-400">● Online</span>
+      <div class="dash-two">
+        <div class="dash-result"><p class="lbl">Lower estimate</p><p id="lowEstDisplay" class="val">—</p></div>
+        <div class="dash-result"><p class="lbl">Upper estimate</p><p id="highEstDisplay" class="val">—</p></div>
       </div>
+      <a id="cardekhoLink" class="dash-link" href="https://www.cardekho.com/used-cars" target="_blank" rel="noopener noreferrer">Compare listings on CarDekho</a>
     </section>
-  </main>
+  </div>
+</main>
 
-  <footer class="border-t border-slate-800 py-4 text-center text-xs text-slate-500">
-    CarPrice AI Platform • FastAPI + Scikit-Learn + Tailwind CSS
-  </footer>
+<script>
+  function updateCarDekhoLink() {
+    const name = document.getElementById("car_name").value.trim();
+    const year = document.getElementById("year").value;
+    document.getElementById("cardekhoLink").href = name
+      ? "https://www.google.com/search?q=" + encodeURIComponent("site:cardekho.com used " + name + " " + year)
+      : "https://www.cardekho.com/used-cars";
+  }
+  ["car_name", "year"].forEach(id => document.getElementById(id).addEventListener("input", updateCarDekhoLink));
 
-  <script>
-    document.getElementById("predictionForm").addEventListener("submit", async function (e) {
-      e.preventDefault();
-      const btn = document.getElementById("submitBtn");
-      const errorBox = document.getElementById("errorBox");
-      errorBox.classList.add("hidden");
-      btn.textContent = "Predicting...";
-      btn.disabled = true;
-
-      try {
-        const formData = new FormData();
-        formData.append("car_name", document.getElementById("car_name").value);
-        formData.append("year", document.getElementById("year").value);
-        formData.append("kms_driven", document.getElementById("kms_driven").value);
-        formData.append("fuel", document.getElementById("fuel").value);
-        formData.append("transmission", document.getElementById("transmission").value);
-
-        const response = await fetch("/predict", {
-          method: "POST",
-          body: formData,
-        });
-
-        const data = await response.json();
-        if (data.status === "success") {
-          document.getElementById("fairPriceDisplay").textContent = data.fairPriceDisplay;
-          document.getElementById("lowEstDisplay").textContent = data.lowEstDisplay;
-          document.getElementById("highEstDisplay").textContent = data.highEstDisplay;
-        } else {
-          errorBox.textContent = "Error: " + (data.message || "Prediction failed");
-          errorBox.classList.remove("hidden");
-        }
-      } catch (err) {
-        errorBox.textContent = "Request failed: " + err.message;
-        errorBox.classList.remove("hidden");
-      } finally {
-        btn.textContent = "Predict Price";
-        btn.disabled = false;
+  document.getElementById("predictionForm").addEventListener("submit", async function (e) {
+    e.preventDefault();
+    const btn = document.getElementById("submitBtn");
+    const errorBox = document.getElementById("errorBox");
+    errorBox.hidden = true;
+    btn.textContent = "Predicting...";
+    btn.disabled = true;
+    try {
+      const fd = new FormData(this);
+      const res = await fetch("/predict", { method: "POST", body: fd });
+      const data = await res.json();
+      if (data.status === "success") {
+        document.getElementById("fairPriceDisplay").textContent = data.fairPriceDisplay;
+        document.getElementById("lowEstDisplay").textContent = data.lowEstDisplay;
+        document.getElementById("highEstDisplay").textContent = data.highEstDisplay;
+        updateCarDekhoLink();
+      } else {
+        errorBox.textContent = data.message || "Prediction failed. Check the details and try again.";
+        errorBox.hidden = false;
       }
-    });
-  </script>
-</body>
-</html>
+    } catch (err) {
+      errorBox.textContent = "Request failed: " + err.message;
+      errorBox.hidden = false;
+    } finally {
+      btn.textContent = "Predict price";
+      btn.disabled = false;
+    }
+  });
+</script>
+{% endblock %}
