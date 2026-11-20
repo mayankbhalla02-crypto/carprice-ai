@@ -4,6 +4,9 @@ from fastapi.templating import Jinja2Templates
 import joblib
 import numpy as np
 import pandas as pd
+from fastapi.staticfiles import StaticFiles
+
+app.mount("/static", StaticFiles(directory="static"), name="static")
 
 app = FastAPI(title="FreshRoute AI - Car Price Prediction")
 templates = Jinja2Templates(directory="templates")
