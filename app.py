@@ -152,6 +152,48 @@ async def logout(request: Request):
 
 
 # ---------------------------------------------------------------- car API
+@app.post("/predict")
+async def predict(
+    car_name: str = Form(""),
+    year: int = Form(...),
+    kms_driven: float = Form(...),
+    fuel: str = Form("Petrol"),
+    transmission: str = Form("Manual"),
+):
+    """Used by templates/dashboard.html (Vehicle details form)."""
+    try:
+        r = ml_model.estimate_used_price(
+            {
+                "model": car_name,
+                "year": year,
+                "kms_driven": kms_driven,
+                "fuel": fuel,
+                "transmission": transmission,
+            }
+        )
+    except ml_model.UnknownCar as e:
+        if not e.name:
+            msg = "Enter a car name."
+        elif e.suggestions:
+            msg = "'" + e.name + "' not found. Did you mean: " + ", ".join(e.suggestions) + "?"
+        else:
+            msg = "'" + e.name + "' not found."
+        return JSONResponse(status_code=200, content={"status": "error", "message": msg})
+    except Exception as exc:
+        return JSONResponse(status_code=500, content={"status": "error", "message": str(exc)})
+
+    title = r["matched_model"] + " \u2022 "
+    return JSONResponse(
+        content={
+            "status": "success",
+            "fairPriceDisplay": title + r["fair"] + " (" + r["category_label"] + " band)",
+            "lowEstDisplay": r["low"],
+            "highEstDisplay": r["high"],
+            "note": r.get("note", ""),
+        }
+    )
+
+
 @app.get("/api/cars")
 async def api_cars():
     """Cars that have a real listed price on CarDekho (no placeholders)."""
@@ -185,6 +227,7 @@ async def api_estimate(
     kms_driven: float = Form(...),
     fuel: str = Form("Petrol"),
     transmission: str = Form("Manual"),
+    new_price_lakh: str = Form(""),
 ):
     try:
         result = ml_model.estimate_used_price(
@@ -194,6 +237,7 @@ async def api_estimate(
                 "kms_driven": kms_driven,
                 "fuel": fuel,
                 "transmission": transmission,
+                "new_price_lakh": new_price_lakh,
             }
         )
     except ml_model.UnknownCar as e:
