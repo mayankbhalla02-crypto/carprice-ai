@@ -7,15 +7,7 @@ import joblib
 import numpy as np
 import pandas as pd
 
-@app.api_route("/", methods=["GET", "HEAD"], response_class=HTMLResponse)
-async def read_root(request: Request):
-    return templates.TemplateResponse(
-        request=request,
-        name="login.html",
-        context={"request": request},
-    )
-
-# 1. Initialize FastAPI app first
+# 1. Initialize FastAPI app FIRST (before any @app decorators or app.mount calls)
 app = FastAPI(title="FreshRoute AI - Car Price Prediction")
 
 # 2. Mount static files directory if present
@@ -38,7 +30,7 @@ templates.env.globals["url_for"] = url_for
 model = joblib.load("car_model_rf.pkl")
 
 
-@app.get("/", response_class=HTMLResponse)
+@app.api_route("/", methods=["GET", "HEAD"], response_class=HTMLResponse)
 async def read_root(request: Request):
     return templates.TemplateResponse(
         request=request,
@@ -47,7 +39,7 @@ async def read_root(request: Request):
     )
 
 
-@app.get("/dashboard", response_class=HTMLResponse)
+@app.api_route("/dashboard", methods=["GET", "HEAD"], response_class=HTMLResponse)
 async def dashboard(request: Request):
     return templates.TemplateResponse(
         request=request,
