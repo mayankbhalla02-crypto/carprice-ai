@@ -178,6 +178,36 @@ async def api_price(model: str = Form(...)):
     return {"status": "success", **result}
 
 
+@app.post("/api/estimate")
+async def api_estimate(
+    model: str = Form(...),
+    year: int = Form(...),
+    kms_driven: float = Form(...),
+    fuel: str = Form("Petrol"),
+    transmission: str = Form("Manual"),
+):
+    try:
+        result = ml_model.estimate_used_price(
+            {
+                "model": model,
+                "year": year,
+                "kms_driven": kms_driven,
+                "fuel": fuel,
+                "transmission": transmission,
+            }
+        )
+    except ml_model.UnknownCar as e:
+        return JSONResponse(
+            status_code=404,
+            content={
+                "status": "unknown",
+                "message": "'" + e.name + "' isn't in the car list.",
+                "suggestions": e.suggestions,
+            },
+        )
+    return {"status": "success", **result}
+
+
 if __name__ == "__main__":
     import uvicorn
 
