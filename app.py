@@ -9,10 +9,22 @@ app = FastAPI(title="FreshRoute AI - Car Price Prediction")
 templates = Jinja2Templates(directory="templates")
 model = joblib.load("car_model_rf.pkl")
 
-
 @app.get("/", response_class=HTMLResponse)
 async def read_root(request: Request):
-    return templates.TemplateResponse("login.html", {"request": request})
+    return templates.TemplateResponse(
+        request=request,
+        name="login.html",
+        context={"request": request},
+    )
+
+
+@app.get("/dashboard", response_class=HTMLResponse)
+async def dashboard(request: Request):
+    return templates.TemplateResponse(
+        request=request,
+        name="dashboard.html",
+        context={"request": request},
+    )
 
 
 @app.get("/dashboard", response_class=HTMLResponse)
