@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% block title %}Pick a car - Car price AI{% endblock %}
+{% block title %}Estimate price - Car price AI{% endblock %}
 {% block head %}
 <style>
   .dash { --g: #0e3b2e; max-width: 760px; margin: 0 auto; padding: 24px; }
@@ -13,11 +13,13 @@
   .dash-card .sub { margin: 0 0 20px; font-size: 14px; opacity: .7; }
   .dash-card select { width: 100%; padding: 10px 12px; border: 1px solid rgba(14,59,46,.3); border-radius: 8px; font: inherit; background: #fff; }
   .dash-card .btn { width: 100%; }
-  .dash-or { text-align: center; font-size: 13px; opacity: .6; margin: 2px 0 14px; }
+  .row2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
   .dash-result { padding: 16px; border-radius: 10px; background: rgba(14,59,46,.07); margin-bottom: 14px; }
   .dash-result .lbl { font-size: 12px; opacity: .7; margin: 0 0 4px; }
   .dash-result .val { margin: 0; font-size: 20px; font-weight: 700; color: var(--g); }
+  .dash-result.big .val { font-size: 28px; }
   .dash-two { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .dash-two .val { font-size: 16px; }
   .dash-link { display: block; text-align: center; padding: 10px; border: 1px solid var(--g); border-radius: 8px; color: var(--g); text-decoration: none; font-weight: 500; }
   .dash-link:hover { background: rgba(14,59,46,.07); }
   .chips { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px; }
@@ -35,26 +37,50 @@
     </a>
     <nav class="dash-links">
       <a href="https://www.cardekho.com" target="_blank" rel="noopener noreferrer">CarDekho</a>
-      <a href="/">Log out</a>
+      <a href="/logout">Log out</a>
     </nav>
   </div>
 
   <section class="dash-card">
-    <h2>Pick a car</h2>
-    <p class="sub">Choose from the list, or type the car's name.</p>
+    <h2>Add your car's details</h2>
+    <p class="sub">Choose the car from the list or type its name, then fill in the details.</p>
 
     <form id="carForm" autocomplete="off">
       <div class="field">
         <label for="carSelect">Choose from list</label>
-        <select id="carSelect"><option value="">Loading cars…</option></select>
+        <select id="carSelect"><option value="">Loading cars...</option></select>
       </div>
-      <p class="dash-or">or</p>
       <div class="field">
-        <label for="carInput">Type the car name</label>
+        <label for="carInput">Or type the car name</label>
         <input id="carInput" name="model" list="carList" placeholder="e.g. Hyundai Creta" required>
         <datalist id="carList"></datalist>
       </div>
-      <button class="btn" type="submit" id="goBtn">See price band</button>
+
+      <div class="row2">
+        <div class="field">
+          <label for="year">Year of purchase</label>
+          <input id="year" name="year" type="number" min="1995" max="2026" value="2020" required>
+        </div>
+        <div class="field">
+          <label for="kms">Kilometres driven</label>
+          <input id="kms" name="kms_driven" type="number" min="0" step="100" value="45000" required>
+        </div>
+      </div>
+      <div class="row2">
+        <div class="field">
+          <label for="fuel">Fuel type</label>
+          <select id="fuel" name="fuel">
+            <option>Petrol</option><option>Diesel</option><option>CNG</option><option>Electric</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="trans">Transmission</label>
+          <select id="trans" name="transmission">
+            <option>Manual</option><option>Automatic</option>
+          </select>
+        </div>
+      </div>
+      <button class="btn" type="submit" id="goBtn">Estimate price</button>
     </form>
     <p id="errorBox" class="error" role="alert" hidden></p>
     <div id="chips" class="chips"></div>
@@ -63,16 +89,20 @@
   <section class="dash-card" id="resultCard" hidden>
     <h2 id="rName"></h2>
     <p class="sub" id="rSub"></p>
-    <div class="dash-result">
-      <p class="lbl">CarDekho listed price</p>
-      <p id="rPrice" class="val"></p>
+    <div class="dash-result big">
+      <p class="lbl">Estimated used price</p>
+      <p id="rFair" class="val"></p>
     </div>
     <div class="dash-two">
+      <div class="dash-result"><p class="lbl">Lower estimate</p><p id="rLow" class="val"></p></div>
+      <div class="dash-result"><p class="lbl">Upper estimate</p><p id="rHigh" class="val"></p></div>
+    </div>
+    <div class="dash-two">
+      <div class="dash-result"><p class="lbl">CarDekho new price</p><p id="rListed" class="val"></p></div>
       <div class="dash-result"><p class="lbl">Price band</p><p id="rBand" class="val"></p></div>
-      <div class="dash-result"><p class="lbl">Band range</p><p id="rRange" class="val" style="font-size:16px"></p></div>
     </div>
     <a id="rLink" class="dash-link" href="#" target="_blank" rel="noopener noreferrer">View on CarDekho</a>
-    <p id="rNote" class="note-small"></p>
+    <p class="note-small">This is an estimate. It starts from the CarDekho listed price and adjusts for the car's age, kilometres, fuel and transmission. The actual market price may differ.</p>
   </section>
 </main>
 
@@ -83,13 +113,13 @@
   const errorBox = document.getElementById("errorBox");
   const chips = document.getElementById("chips");
   const resultCard = document.getElementById("resultCard");
+  const form = document.getElementById("carForm");
 
-  // Load the cars that have a real CarDekho price
   fetch("/api/cars").then(r => r.json()).then(cars => {
-    sel.innerHTML = '<option value="">Select a car…</option>';
+    sel.innerHTML = '<option value="">Select a car...</option>';
     cars.forEach(c => {
       const o = document.createElement("option");
-      o.value = c.model; o.textContent = c.model + " — " + c.price;
+      o.value = c.model; o.textContent = c.model + " - " + c.price;
       sel.appendChild(o);
       const d = document.createElement("option");
       d.value = c.model; d.label = c.price;
@@ -97,46 +127,49 @@
     });
   }).catch(() => { sel.innerHTML = '<option value="">Could not load cars</option>'; });
 
-  // Keep the dropdown and the text box in sync
   sel.addEventListener("change", () => { if (sel.value) input.value = sel.value; });
   input.addEventListener("input", () => {
     const match = [...sel.options].find(o => o.value.toLowerCase() === input.value.trim().toLowerCase());
     sel.value = match ? match.value : "";
   });
 
-  document.getElementById("carForm").addEventListener("submit", async (e) => {
+  form.addEventListener("submit", async (e) => {
     e.preventDefault();
     const btn = document.getElementById("goBtn");
     errorBox.hidden = true; chips.innerHTML = ""; resultCard.hidden = true;
-    btn.disabled = true; btn.textContent = "Checking…";
+    btn.disabled = true; btn.textContent = "Estimating...";
     try {
-      const fd = new FormData(); fd.append("model", input.value.trim());
-      const res = await fetch("/api/price", { method: "POST", body: fd });
-      const d = await res.json();
+      const fd = new FormData(form);
+      fd.set("model", input.value.trim());
+      const res = await fetch("/api/estimate", { method: "POST", body: fd });
+      const text = await res.text();
+      let d;
+      try { d = JSON.parse(text); } catch (x) { throw new Error("Server error. Please try again."); }
       if (d.status === "success") {
         document.getElementById("rName").textContent = d.matched_model;
-        document.getElementById("rSub").textContent = d.fuel + " · " + d.transmission;
-        document.getElementById("rPrice").textContent = d.listed_price;
+        document.getElementById("rSub").textContent = fd.get("year") + " model, " + d.age + " year(s) old, " + Number(fd.get("kms_driven")).toLocaleString("en-IN") + " km, " + fd.get("fuel") + ", " + fd.get("transmission");
+        document.getElementById("rFair").textContent = d.fair;
+        document.getElementById("rLow").textContent = d.low;
+        document.getElementById("rHigh").textContent = d.high;
+        document.getElementById("rListed").textContent = d.listed_price;
         document.getElementById("rBand").textContent = d.category_label;
-        document.getElementById("rRange").textContent = d.price_range;
         document.getElementById("rLink").href = d.url;
-        document.getElementById("rNote").textContent =
-          "Band is based on the highest listed price on CarDekho. Prices may have changed since this data was collected.";
         resultCard.hidden = false;
+        resultCard.scrollIntoView({ behavior: "smooth" });
       } else {
-        errorBox.textContent = d.message || "Could not find that car.";
+        errorBox.textContent = d.message || "Could not estimate that car.";
         errorBox.hidden = false;
         (d.suggestions || []).forEach(s => {
           const b = document.createElement("button");
           b.type = "button"; b.className = "chip"; b.textContent = s;
-          b.onclick = () => { input.value = s; sel.value = s; document.getElementById("carForm").requestSubmit(); };
+          b.onclick = () => { input.value = s; sel.value = s; form.requestSubmit(); };
           chips.appendChild(b);
         });
       }
     } catch (err) {
-      errorBox.textContent = "Request failed: " + err.message; errorBox.hidden = false;
+      errorBox.textContent = err.message; errorBox.hidden = false;
     } finally {
-      btn.disabled = false; btn.textContent = "See price band";
+      btn.disabled = false; btn.textContent = "Estimate price";
     }
   });
 </script>
